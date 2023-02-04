@@ -10,6 +10,9 @@ import { EmployeeService } from './employee.service';
 })
 export class EmployeeComponent implements OnInit {
   employees: any;
+  employee: any;
+  selectedEmployee: any;
+  dataSource: any;
   constructor(private accountService: AccountService, private employeeService: EmployeeService, private router: Router) {}
 
   ngOnInit(): void {
@@ -23,6 +26,7 @@ export class EmployeeComponent implements OnInit {
       // eslint-disable-next-line no-console
       console.log(response);
       this.employees = response;
+      this.employee = response;
     });
   }
 }
