@@ -1,7 +1,7 @@
 <p-table
-  [value]="employees"
+  [value]="operationHistories"
   selectionMode="single"
-  [(selection)]="selectedEmployee"
+  [(selection)]="selectedOperationHistory"
   [tableStyle]="{ 'min-width': '50rem' }"
   (onRowSelect)="unlockRow()"
   (onRowUnselect)="lockRow()"
@@ -9,17 +9,17 @@
   <ng-template pTemplate="header">
     <tr>
       <th>Id</th>
-      <th>First Name</th>
-      <th>Lastname</th>
-      <th>Pesel</th>
+      <th>User Id</th>
+      <th>Date of change</th>
+      <th>Description of the change</th>
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-employee>
-    <tr [pSelectableRow]="employee">
-      <td>{{ employee.id }}</td>
-      <td>{{ employee.firstName }}</td>
-      <td>{{ employee.lastName }}</td>
-      <td>{{ employee.pesel }}</td>
+  <ng-template pTemplate="body" let-operationHistory>
+    <tr [pSelectableRow]="operationHistory">
+      <td>{{ operationHistory.id }}</td>
+      <td>{{ operationHistory.userId }}</td>
+      <td>{{ operationHistory.dateOfChange }}</td>
+      <td>{{ operationHistory.changeDescription }}</td>
     </tr>
   </ng-template>
 </p-table>

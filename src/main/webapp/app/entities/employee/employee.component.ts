@@ -12,7 +12,7 @@ export class EmployeeComponent implements OnInit {
   employees: any;
   employee: any;
   selectedEmployee: any;
-  dataSource: any;
+  buttonActivated = true;
   constructor(private accountService: AccountService, private employeeService: EmployeeService, private router: Router) {}
 
   ngOnInit(): void {
@@ -28,5 +28,20 @@ export class EmployeeComponent implements OnInit {
       this.employees = response;
       this.employee = response;
     });
+  }
+
+  unlockRow(): void {
+    // eslint-disable-next-line no-console
+    this.buttonActivated = false;
+  }
+
+  lockRow(): void {
+    // eslint-disable-next-line no-console
+    this.buttonActivated = true;
+  }
+
+  deleteSelectedRow(): void {
+    // eslint-disable-next-line no-console
+    console.log('usuwam rekord z nr id: ', this.selectedEmployee.id);
   }
 }

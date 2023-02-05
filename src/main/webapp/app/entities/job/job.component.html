@@ -1,7 +1,7 @@
 <p-table
-  [value]="employees"
+  [value]="jobs"
   selectionMode="single"
-  [(selection)]="selectedEmployee"
+  [(selection)]="selectedJob"
   [tableStyle]="{ 'min-width': '50rem' }"
   (onRowSelect)="unlockRow()"
   (onRowUnselect)="lockRow()"
@@ -9,17 +9,13 @@
   <ng-template pTemplate="header">
     <tr>
       <th>Id</th>
-      <th>First Name</th>
-      <th>Lastname</th>
-      <th>Pesel</th>
+      <th>Job title</th>
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-employee>
-    <tr [pSelectableRow]="employee">
-      <td>{{ employee.id }}</td>
-      <td>{{ employee.firstName }}</td>
-      <td>{{ employee.lastName }}</td>
-      <td>{{ employee.pesel }}</td>
+  <ng-template pTemplate="body" let-job>
+    <tr [pSelectableRow]="job">
+      <td>{{ job.id }}</td>
+      <td>{{ job.jobTitle }}</td>
     </tr>
   </ng-template>
 </p-table>
