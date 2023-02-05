@@ -1,5 +1,6 @@
 package pl.rekru.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -57,7 +58,14 @@ public class JobServiceImpl implements JobService {
     @Transactional(readOnly = true)
     public List<Job> findAll() {
         log.debug("Request to get all Jobs");
-        return jobRepository.findAll();
+        List<Job> allRecords = jobRepository.findAll();
+        List<Job> returnList = new ArrayList<Job>();
+        for (Job job : allRecords) {
+            if (!(job.getDeleted() != null)) {
+                returnList.add(job);
+            }
+        }
+        return returnList;
     }
 
     @Override
@@ -68,8 +76,15 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public void delete(Long id) {
+    public Boolean delete(Long id) {
         log.debug("Request to delete Job : {}", id);
-        jobRepository.deleteById(id);
+        Optional<Job> job = jobRepository.findById(id);
+        if (job.isPresent()) {
+            job.get().setDeleted(true);
+            jobRepository.save(job.get());
+            return true;
+        } else {
+            return false;
+        }
     }
 }

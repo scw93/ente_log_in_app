@@ -51,6 +51,7 @@ public interface JobService {
      * Delete the "id" job.
      *
      * @param id the id of the entity.
+     * @return
      */
-    void delete(Long id);
+    Boolean delete(Long id);
 }
