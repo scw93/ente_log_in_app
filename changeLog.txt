@@ -1,0 +1,12 @@
+ver 1.0.3
+- dodanie funkcjonalności do tabelki employee (przyciski add, delete, edit)
+
+ver 1.0.2
+- dodanie zakładek z obsługą tabel (Employee, job, operationHistory)
+
+ver 1.0.1
+- import pliku .jdl
+
+ver 1.0.0
+- inicjalizacja projektu
+- konfiguracja projektu

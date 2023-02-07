@@ -6,11 +6,11 @@ import { EMPLOYEE_ROUTE } from './employee.route';
 import { EmployeeComponent } from './employee.component';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatTableModule } from '@angular/material';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
-  imports: [MatTableModule, MatSlideToggleModule, ButtonModule, TableModule, SharedModule, RouterModule.forChild([EMPLOYEE_ROUTE])],
+  imports: [InputTextModule, DialogModule, ButtonModule, TableModule, SharedModule, RouterModule.forChild([EMPLOYEE_ROUTE])],
   declarations: [EmployeeComponent],
 })
 export class EmployeeModule {}

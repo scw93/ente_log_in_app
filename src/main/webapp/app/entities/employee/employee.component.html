@@ -3,26 +3,62 @@
   selectionMode="single"
   [(selection)]="selectedEmployee"
   [tableStyle]="{ 'min-width': '50rem' }"
-  (onRowSelect)="unlockRow()"
-  (onRowUnselect)="lockRow()"
+  (onRowSelect)="unlockButtons()"
+  (onRowUnselect)="lockButtons()"
 >
   <ng-template pTemplate="header">
     <tr>
       <th>Id</th>
-      <th>First Name</th>
-      <th>Lastname</th>
+      <th>FULL Name</th>
+      <!-- <th>Lastname</th> -->
       <th>Pesel</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-employee>
     <tr [pSelectableRow]="employee">
       <td>{{ employee.id }}</td>
-      <td>{{ employee.firstName }}</td>
-      <td>{{ employee.lastName }}</td>
+      <td>{{ employee.firstName }} {{ employee.lastName }}</td>
+      <!-- <td>{{ employee.lastName }}</td> -->
       <td>{{ employee.pesel }}</td>
     </tr>
   </ng-template>
 </p-table>
-<p-button label="Add"></p-button>
-<p-button label="Delete" [disabled]="buttonActivated" (onClick)="deleteSelectedRow()"></p-button>
-<p-button label="Edit" [disabled]="buttonActivated"></p-button>
+<p-button label="Add" (click)="showDialog()"></p-button>
+<p-button label="Delete" [disabled]="isButtonDisabled" (onClick)="deleteSelectedRow()"></p-button>
+<p-button label="Edit" (click)="showDialog()" [disabled]="isButtonDisabled"></p-button>
+<p-dialog
+  header="Title"
+  [(visible)]="display"
+  [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+  [style]="{ width: '50vw' }"
+  [modal]="true"
+  [maximizable]="true"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div>
+    <div>
+      <input id="float-input-one" type="text" pInputText [(ngModel)]="selectedEmployee.firstName" />
+      <label for="float-input-one">Imie</label>
+    </div>
+    <div>
+      <input id="float-input-two" type="text" pInputText [(ngModel)]="selectedEmployee.lastName" />
+      <label for="float-input-two">Nazwisko</label>
+    </div>
+    <div>
+      <input id="float-input-three" type="text" pInputText [(ngModel)]="selectedEmployee.pesel" />
+      <label for="float-input-three">Pesel</label>
+    </div>
+  </div>
+  <div>
+    <p-button label="Close" (click)="hideDialog()"></p-button>
+  </div>
+  <div [ngSwitch]="isAdd()">
+    <div *ngSwitchCase="true">
+      <p-button label="Add" (click)="addEmployee()"></p-button>
+    </div>
+    <div *ngSwitchCase="false">
+      <p-button label="Update" (click)="updateEmployee()"></p-button>
+    </div>
+  </div>
+</p-dialog>
