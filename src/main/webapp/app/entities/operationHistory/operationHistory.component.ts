@@ -3,10 +3,12 @@ import { Router } from '@angular/router';
 
 import { AccountService } from 'app/core/auth/account.service';
 import { OperationHistoryService } from './operationHistory.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'jhi-operation-history',
   templateUrl: './operationHistory.component.html',
+  providers: [MessageService],
 })
 export class OperationHistoryComponent implements OnInit {
   operationHistories: any;
@@ -15,7 +17,12 @@ export class OperationHistoryComponent implements OnInit {
   buttonActivated = true;
   display = false;
   newOperation = '';
-  constructor(private accountService: AccountService, private operationHistoryService: OperationHistoryService, private router: Router) {}
+  constructor(
+    private messageService: MessageService,
+    private accountService: AccountService,
+    private operationHistoryService: OperationHistoryService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getAllOperationsHistory();
@@ -46,6 +53,7 @@ export class OperationHistoryComponent implements OnInit {
     this.operationHistoryService.deleteOperationHistory(this.selectedOperationHistory.id).subscribe(response => {
       if (response) {
         this.getAllOperationsHistory();
+        this.showToast();
       } else {
         // eslint-disable-next-line no-console
         console.log('nie znaleziono stanowiska z tym id');
@@ -55,5 +63,9 @@ export class OperationHistoryComponent implements OnInit {
 
   showDialog(): void {
     this.display = true;
+  }
+
+  showToast(): void {
+    this.messageService.add({ severity: 'info', summary: 'Info Message!', detail: 'Record was deleted.' });
   }
 }

@@ -165,12 +165,13 @@ public class OperationHistoryResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/operation-histories/{id}")
-    public ResponseEntity<Void> deleteOperationHistory(@PathVariable Long id) {
+    public Boolean deleteOperationHistory(@PathVariable Long id) {
         log.debug("REST request to delete OperationHistory : {}", id);
         operationHistoryService.delete(id);
-        return ResponseEntity
-            .noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
-            .build();
+        return true;
+        // .ok()
+        // .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
+        // .build()
+        // .body(true);
     }
 }

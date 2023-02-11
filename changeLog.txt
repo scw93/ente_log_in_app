@@ -1,5 +1,10 @@
+ver 1.0.5
+- dodanie soft delete do zakładki OperationHistory 
+- dodanie toast buttona
+
 ver 1.0.4
-- dodanie wyskakujących modali oraz toaastów z primeng
+- dodanie wyskakujących modali
+- dodanie toast buttonów
 
 ver 1.0.3
 - dodanie funkcjonalności do tabelki employee (przyciski add, delete, edit)

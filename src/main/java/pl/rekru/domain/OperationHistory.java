@@ -1,5 +1,6 @@
 package pl.rekru.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.time.Instant;
 import javax.persistence.*;
@@ -31,6 +32,10 @@ public class OperationHistory implements Serializable {
 
     @Column(name = "change_description")
     private String changeDescription;
+
+    @JsonIgnore
+    @Column(name = "deleted")
+    private Boolean deleted;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -64,6 +69,14 @@ public class OperationHistory implements Serializable {
 
     public void setChangeDescription(String changeDescription) {
         this.changeDescription = changeDescription;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
