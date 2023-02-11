@@ -3,9 +3,10 @@
   selectionMode="single"
   [(selection)]="selectedOperationHistory"
   [tableStyle]="{ 'min-width': '50rem' }"
-  (onRowSelect)="unlockRow()"
-  (onRowUnselect)="lockRow()"
+  (onRowSelect)="unlockButtons()"
+  (onRowUnselect)="lockButtons()"
 >
+  >
   <ng-template pTemplate="header">
     <tr>
       <th>Id</th>
@@ -23,6 +24,36 @@
     </tr>
   </ng-template>
 </p-table>
-<p-button label="Add"></p-button>
-<p-button label="Delete" [disabled]="buttonActivated" (onClick)="deleteSelectedRow()"></p-button>
-<p-button label="Edit" [disabled]="buttonActivated"></p-button>
+<!-- <p-button label="Add" (click)="showDialog()"></p-button> -->
+<div>
+  <p-button label="Delete" [disabled]="buttonActivated" (onClick)="deleteSelectedRow()" *jhiHasAnyAuthority="'ROLE_ADMIN'"></p-button>
+</div>
+
+<!-- <p-dialog
+  header="Title"
+  [(visible)]="display"
+  [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+  [style]="{ width: '50vw' }"
+  [modal]="true"
+  [maximizable]="true"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div>
+    <div>
+      <input id="float-input-one" type="text" pInputText [(ngModel)]="newOperation" />
+      <label for="float-input-one">User Id</label>
+    </div>
+    <div>
+      <input id="float-input-one" type="text" pInputText [(ngModel)]="newOperation" />
+      <label for="float-input-one">Date of change</label>
+    </div>
+    <div>
+      <input id="float-input-one" type="text" pInputText [(ngModel)]="newOperation" />
+      <label for="float-input-one">Description of the change</label>
+    </div>
+    <div> -->
+<!-- <p-button label="Save"></p-button>
+    </div>
+  </div>
+</p-dialog> -->

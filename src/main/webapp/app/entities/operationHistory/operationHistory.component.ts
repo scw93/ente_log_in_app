@@ -13,12 +13,22 @@ export class OperationHistoryComponent implements OnInit {
   operationHistory: any;
   selectedOperationHistory: any;
   buttonActivated = true;
+  display = false;
+  newOperation = '';
   constructor(private accountService: AccountService, private operationHistoryService: OperationHistoryService, private router: Router) {}
 
   ngOnInit(): void {
     this.getAllOperationsHistory();
     // eslint-disable-next-line no-console
     console.log('historie operacji');
+  }
+
+  unlockButtons(): void {
+    this.buttonActivated = false;
+  }
+
+  lockButtons(): void {
+    this.buttonActivated = true;
   }
 
   getAllOperationsHistory(): void {
@@ -30,18 +40,20 @@ export class OperationHistoryComponent implements OnInit {
     });
   }
 
-  unlockRow(): void {
-    // eslint-disable-next-line no-console
-    this.buttonActivated = false;
-  }
-
-  lockRow(): void {
-    // eslint-disable-next-line no-console
-    this.buttonActivated = true;
-  }
-
   deleteSelectedRow(): void {
     // eslint-disable-next-line no-console
     console.log('usuwam rekord z nr id: ', this.selectedOperationHistory.id);
+    this.operationHistoryService.deleteOperationHistory(this.selectedOperationHistory.id).subscribe(response => {
+      if (response) {
+        this.getAllOperationsHistory();
+      } else {
+        // eslint-disable-next-line no-console
+        console.log('nie znaleziono stanowiska z tym id');
+      }
+    });
+  }
+
+  showDialog(): void {
+    this.display = true;
   }
 }

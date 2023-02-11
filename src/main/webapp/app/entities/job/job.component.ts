@@ -14,6 +14,8 @@ export class JobComponent implements OnInit {
   job: any;
   selectedJob: any;
   buttonActivated = true;
+  display = false;
+  jobTitle = '';
   constructor(private accountService: AccountService, private jobService: JobService, private router: Router) {}
 
   ngOnInit(): void {
@@ -52,5 +54,41 @@ export class JobComponent implements OnInit {
         console.log('nie znaleziono stanowiska z tym id');
       }
     });
+  }
+
+  showDialog(flag: boolean): void {
+    this.display = true;
+    if (flag) {
+      this.fillModel();
+    } else {
+      this.clearModel();
+    }
+  }
+
+  fillModel(): void {
+    this.jobTitle = this.selectedJob.jobTitle;
+  }
+
+  clearModel(): void {
+    this.jobTitle = '';
+  }
+
+  updateJob(): void {
+    this.jobService.update(this.selectedJob.id!, this.selectedJob).subscribe(response => {
+      // eslint-disable-next-line no-console
+      console.log('zaktualizowano nowego uzytkownika: ', response);
+      this.getAllJobs();
+    });
+    this.hideDialog();
+  }
+
+  //obejrzec filmik i wiedziec dlaczego 2x w tabelce selectedJob!!!
+  updateEmployee(): void {
+    this.employeeService.update(this.selectedEmployee.id!, this.selectedEmployee).subscribe(response => {
+      // eslint-disable-next-line no-console
+      console.log('zaktualizowano nowego uzytkownika: ', response);
+      this.getAllEmployees();
+    });
+    this.hideDialog();
   }
 }

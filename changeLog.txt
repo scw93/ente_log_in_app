@@ -1,3 +1,6 @@
+ver 1.0.4
+- dodanie wyskakujących modali oraz toaastów z primeng
+
 ver 1.0.3
 - dodanie funkcjonalności do tabelki employee (przyciski add, delete, edit)
 

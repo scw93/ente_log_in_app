@@ -1,9 +1,8 @@
-<!-- <div class="wrapper"></div> -->
 <div class="row wrapper">
   <div>
     <div [ngSwitch]="account !== null">
       <h1>Welcome in ENTE ELEMENTE</h1>
-      <div class="buttons" *ngSwitchCase="false">
+      <div class="buttons-container" *ngSwitchCase="false">
         <button (click)="login()">Sign in</button>
         <button routerLink="account/register">Register</button>
       </div>

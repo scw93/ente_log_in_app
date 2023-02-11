@@ -23,14 +23,43 @@ Navbar
   }
 }
 
-/* ==========================================================================
-Logo styles
-========================================================================== */
-.logo-img {
-  height: 45px;
-  width: 45px;
-  display: inline-block;
-  vertical-align: middle;
-  background: url('../../../content/images/logo-jhipster.png') no-repeat center center;
-  background-size: contain;
+.logo-ente {
+  text-align: center;
+  border-top: 2px solid red;
+  padding: 50px 0;
+}
+
+.logo-ente img {
+  width: 130px;
+}
+
+.piotrek-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.piotrek-menu__element {
+  text-align: center;
+  color: white;
+  width: 200px;
+  cursor: pointer;
+  // border-right: 1px solid red;
+  transition: background 0.3s;
+  padding: 8px 0;
+  transition: 0.2s;
+}
+
+.piotrek-menu__element:hover {
+  color: red;
+}
+
+.piotrek-menu__element:nth-last-child(1) {
+  border: none;
+}
+
+.interrupter {
+  height: 28px;
+  border: 1px solid red;
+  border-radius: 8px;
 }

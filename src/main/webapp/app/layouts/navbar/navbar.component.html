@@ -12,10 +12,11 @@
         routerLink="/"
         (click)="collapseNavbar()"
       >
-        <span><fa-icon icon="home"></fa-icon> Home</span>
+        <span class="fa-icon-text"><fa-icon icon="home"></fa-icon> Home</span>
       </div>
+      <div class="interrupter"></div>
       <div
-        class="piotrek-menu__element element-margin"
+        class="piotrek-menu__element"
         routerLink="employee"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
@@ -23,24 +24,27 @@
       >
         <span class="fa-icon-text"><fa-icon icon="th-list"></fa-icon> Employees</span>
       </div>
+      <div class="interrupter"></div>
       <div
-        class="piotrek-menu__element element-margin"
+        class="piotrek-menu__element"
         routerLink="job"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
         (click)="collapseNavbar()"
       >
-        <span class="fa-icon-text"><fa-icon icon="th-list"></fa-icon> Role</span>
+        <span class="fa-icon-text"><fa-icon icon="th-list"></fa-icon> Job titles</span>
       </div>
+      <div class="interrupter"></div>
       <div
-        class="piotrek-menu__element element-margin"
+        class="piotrek-menu__element"
         routerLink="operation-history"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
         (click)="collapseNavbar()"
       >
-        <span class="fa-icon-text"><fa-icon icon="th-list"></fa-icon> Operation history</span>
+        <span class="fa-icon-text"><fa-icon icon="th-list"></fa-icon> Operations history</span>
       </div>
+      <div class="interrupter"></div>
       <div
         class="piotrek-menu__element"
         routerLink="employee-2-job"
@@ -48,15 +52,16 @@
         [routerLinkActiveOptions]="{ exact: true }"
         (click)="collapseNavbar()"
       >
-        <span class="fa-icon-text"><fa-icon icon="th-list"></fa-icon> Employee roles</span>
+        <span class="fa-icon-text"><fa-icon icon="th-list"></fa-icon> Employees roles</span>
       </div>
+      <div class="interrupter"></div>
       <div class="piotrek-menu__element" (click)="logout()" id="logout" data-cy="logout">
         <span class="fa-icon-text"><fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>Log out</span>
       </div>
     </div>
     <div *ngSwitchCase="false" class="piotrek-menu bg-dark">
       <div
-        class="nav-item piotrek-menu__element element-margin"
+        class="nav-item piotrek-menu__element"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
         routerLink="/"
@@ -64,7 +69,8 @@
       >
         <span class="fa-icon-text"><fa-icon icon="home"></fa-icon> Home</span>
       </div>
-      <div class="piotrek-menu__element element-margin" (click)="login()" id="login" data-cy="login">
+      <div class="interrupter"></div>
+      <div class="piotrek-menu__element" (click)="login()" id="login" data-cy="login">
         <!-- <i class="fa-sharp fa-solid fa-right-to-bracket"></i> -->
         <span class="fa-icon-text"><fa-icon icon="sign-in-alt" [fixedWidth]="true"></fa-icon> Sign in</span>
       </div>

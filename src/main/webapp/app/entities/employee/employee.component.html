@@ -9,16 +9,16 @@
   <ng-template pTemplate="header">
     <tr>
       <th>Id</th>
-      <th>FULL Name</th>
-      <!-- <th>Lastname</th> -->
+      <th>Name</th>
+      <th>Lastname</th>
       <th>Pesel</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-employee>
     <tr [pSelectableRow]="employee">
       <td>{{ employee.id }}</td>
-      <td>{{ employee.firstName }} {{ employee.lastName }}</td>
-      <!-- <td>{{ employee.lastName }}</td> -->
+      <td>{{ employee.firstName }}</td>
+      <td>{{ employee.lastName }}</td>
       <td>{{ employee.pesel }}</td>
     </tr>
   </ng-template>
@@ -49,9 +49,6 @@
       <input id="float-input-three" type="text" pInputText [(ngModel)]="selectedEmployee.pesel" />
       <label for="float-input-three">Pesel</label>
     </div>
-  </div>
-  <div>
-    <p-button label="Close" (click)="hideDialog()"></p-button>
   </div>
   <div [ngSwitch]="isAdd()">
     <div *ngSwitchCase="true">
