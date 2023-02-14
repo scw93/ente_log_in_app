@@ -1,0 +1,18 @@
+tr th,
+tr td {
+  text-align: center;
+  width: 25%;
+}
+
+.p-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.p-buttons button {
+  // padding: 0 40px;
+  text-align: center;
+  background-color: red;
+  width: 300px;
+}

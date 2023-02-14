@@ -22,6 +22,6 @@ export class EmployeeService {
   }
 
   delete(id: number): Observable<any> {
-    return this.http.delete(`${this.applicationConfigService.getEndpointFor('api/employees')}/${id}`);
+    return this.http.delete(`${this.applicationConfigService.getEndpointFor('api/employee')}/${id}`);
   }
 }

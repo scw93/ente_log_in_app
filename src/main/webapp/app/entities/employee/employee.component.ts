@@ -4,17 +4,26 @@ import { Router } from '@angular/router';
 import { AccountService } from 'app/core/auth/account.service';
 import { Employee } from './employee.model';
 import { EmployeeService } from './employee.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'jhi-employee',
   templateUrl: './employee.component.html',
+  styleUrls: ['./employee.component.scss'],
+  providers: [MessageService],
 })
 export class EmployeeComponent implements OnInit {
   employees: Employee[] = [];
   selectedEmployee: Employee = new Employee();
   isButtonDisabled = true;
+  isButtonDisabledAddBtn = false;
   display = false;
-  constructor(private accountService: AccountService, private employeeService: EmployeeService, private router: Router) {}
+  constructor(
+    private messageService: MessageService,
+    private accountService: AccountService,
+    private employeeService: EmployeeService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getAllEmployees();
@@ -32,10 +41,12 @@ export class EmployeeComponent implements OnInit {
 
   unlockButtons(): void {
     this.isButtonDisabled = false;
+    this.isButtonDisabledAddBtn = true;
   }
 
   lockButtons(): void {
     this.isButtonDisabled = true;
+    this.isButtonDisabledAddBtn = false;
     this.clearModel();
   }
 
@@ -46,6 +57,7 @@ export class EmployeeComponent implements OnInit {
     this.employeeService.delete(this.selectedEmployee.id!).subscribe(response => {
       if (response) {
         this.getAllEmployees();
+        this.showInfo();
       } else {
         // eslint-disable-next-line no-console
         console.log('nie znaleziono pracownika z tym id');
@@ -66,6 +78,7 @@ export class EmployeeComponent implements OnInit {
       // eslint-disable-next-line no-console
       console.log('dodano nowego uzytkownika: ', response);
       this.getAllEmployees();
+      this.showSuccess();
     });
     this.hideDialog();
   }
@@ -89,5 +102,13 @@ export class EmployeeComponent implements OnInit {
 
   hideDialog(): void {
     this.display = false;
+  }
+
+  showInfo(): void {
+    this.messageService.add({ severity: 'info', summary: 'Info Message!', detail: 'Record was deleted.' });
+  }
+
+  showSuccess(): void {
+    this.messageService.add({ severity: 'success', summary: 'Success!', detail: 'SIemano' });
   }
 }

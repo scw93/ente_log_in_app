@@ -1,4 +1,5 @@
 <p-table
+  class="testTable"
   [value]="employees"
   selectionMode="single"
   [(selection)]="selectedEmployee"
@@ -23,9 +24,12 @@
     </tr>
   </ng-template>
 </p-table>
-<p-button label="Add" (click)="showDialog()"></p-button>
-<p-button label="Delete" [disabled]="isButtonDisabled" (onClick)="deleteSelectedRow()"></p-button>
-<p-button label="Edit" (click)="showDialog()" [disabled]="isButtonDisabled"></p-button>
+<div class="p-buttons">
+  <p-button label="Add" (click)="showDialog()" *jhiHasAnyAuthority="'ROLE_ADMIN'" [disabled]="isButtonDisabledAddBtn"></p-button>
+  <p-button label="Delete" [disabled]="isButtonDisabled" (onClick)="deleteSelectedRow()" *jhiHasAnyAuthority="'ROLE_ADMIN'"></p-button>
+  <p-button label="Edit" (click)="showDialog()" [disabled]="isButtonDisabled" *jhiHasAnyAuthority="'ROLE_ADMIN'"></p-button>
+</div>
+
 <p-dialog
   header="Title"
   [(visible)]="display"
@@ -59,3 +63,4 @@
     </div>
   </div>
 </p-dialog>
+<p-toast></p-toast>

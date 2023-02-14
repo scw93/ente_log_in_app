@@ -37,6 +37,7 @@ Navbar
   display: flex;
   justify-content: center;
   align-items: center;
+  border-bottom: 2px solid red;
 }
 
 .piotrek-menu__element {
@@ -52,10 +53,7 @@ Navbar
 
 .piotrek-menu__element:hover {
   color: red;
-}
-
-.piotrek-menu__element:nth-last-child(1) {
-  border: none;
+  scale: 1.1;
 }
 
 .interrupter {

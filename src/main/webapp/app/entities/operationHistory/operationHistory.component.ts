@@ -8,6 +8,7 @@ import { MessageService } from 'primeng/api';
 @Component({
   selector: 'jhi-operation-history',
   templateUrl: './operationHistory.component.html',
+  styleUrls: ['./operationHistory.component.scss'],
   providers: [MessageService],
 })
 export class OperationHistoryComponent implements OnInit {
