@@ -51,6 +51,7 @@ public interface EmployeeService {
      * Delete the "id" employee.
      *
      * @param id the id of the entity.
+     * @return
      */
-    void delete(Long id);
+    Boolean delete(Long id);
 }

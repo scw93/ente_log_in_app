@@ -1,3 +1,6 @@
+ver 1.0.7
+- dodanie zapytań query do tabel employee oraz job
+
 ver 1.0.6
 - głównie tworzenie front endu na 1 stronie powitalnej
 

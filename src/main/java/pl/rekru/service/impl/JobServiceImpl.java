@@ -57,15 +57,7 @@ public class JobServiceImpl implements JobService {
     @Override
     @Transactional(readOnly = true)
     public List<Job> findAll() {
-        log.debug("Request to get all Jobs");
-        List<Job> allRecords = jobRepository.findAll();
-        List<Job> returnList = new ArrayList<Job>();
-        for (Job job : allRecords) {
-            if (!(job.getDeleted() != null)) {
-                returnList.add(job);
-            }
-        }
-        return returnList;
+        return jobRepository.findAllNotDeletedJobs();
     }
 
     @Override

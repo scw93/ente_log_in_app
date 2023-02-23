@@ -34,6 +34,9 @@ public class Employee implements Serializable {
     @Column(name = "pesel")
     private String pesel;
 
+    @Column(name = "deleted")
+    private Boolean deleted;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -66,6 +69,14 @@ public class Employee implements Serializable {
 
     public void setPesel(String pesel) {
         this.pesel = pesel;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
