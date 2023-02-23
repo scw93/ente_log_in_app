@@ -1,4 +1,6 @@
 <p-table
+  [scrollable]="true"
+  scrollHeight="70vh"
   [value]="operationHistories"
   selectionMode="single"
   [(selection)]="selectedOperationHistory"
@@ -6,13 +8,17 @@
   (onRowSelect)="unlockButtons()"
   (onRowUnselect)="lockButtons()"
 >
-  >
+  <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between">
+      <input type="text" pInputText placeholder="Search" class="search-input" />
+    </div>
+  </ng-template>
   <ng-template pTemplate="header">
     <tr>
       <th>Id</th>
       <th>User Id</th>
       <th>Date of change</th>
-      <th>Description of the change</th>
+      <th>Description of change</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-operationHistory>
@@ -23,11 +29,16 @@
       <td>{{ operationHistory.changeDescription }}</td>
     </tr>
   </ng-template>
+  <ng-template pTemplate="summary">
+    <div class="flex align-items-center justify-content-between">
+      <div class="p-buttons">
+        <p-button label="Delete" [disabled]="buttonActivated" (onClick)="deleteSelectedRow()" *jhiHasAnyAuthority="'ROLE_ADMIN'"></p-button>
+      </div>
+    </div>
+  </ng-template>
 </p-table>
 <!-- <p-button label="Add" (click)="showDialog()"></p-button> -->
-<div>
-  <p-button label="Delete" [disabled]="buttonActivated" (onClick)="deleteSelectedRow()" *jhiHasAnyAuthority="'ROLE_ADMIN'"></p-button>
-</div>
+
 <p-toast></p-toast>
 
 <!-- <p-dialog

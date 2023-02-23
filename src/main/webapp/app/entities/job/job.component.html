@@ -1,4 +1,6 @@
 <p-table
+  [scrollable]="true"
+  scrollHeight="70vh"
   [value]="jobs"
   selectionMode="single"
   [(selection)]="selectedJob"
@@ -6,6 +8,11 @@
   (onRowSelect)="unlockButtons()"
   (onRowUnselect)="lockButtons()"
 >
+  <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between">
+      <input type="text" pInputText placeholder="Search" class="search-input" />
+    </div>
+  </ng-template>
   <ng-template pTemplate="header">
     <tr>
       <th>Id</th>
@@ -18,10 +25,24 @@
       <td>{{ job.jobTitle }}</td>
     </tr>
   </ng-template>
+  <ng-template pTemplate="summary">
+    <div class="flex align-items-center justify-content-between">
+      <div class="p-buttons">
+        <p-button
+          label="Add"
+          (onClick)="showDialog(false)"
+          [disabled]="isButtonDisabledAddBtn"
+          *jhiHasAnyAuthority="'ROLE_ADMIN'"
+        ></p-button>
+        <div class="interrupter-bts"></div>
+        <p-button label="Delete" [disabled]="buttonActivated" (onClick)="deleteSelectedRow()" *jhiHasAnyAuthority="'ROLE_ADMIN'"></p-button>
+        <div class="interrupter-bts"></div>
+        <p-button label="Edit" (onClick)="showDialog(true)" [disabled]="buttonActivated" *jhiHasAnyAuthority="'ROLE_ADMIN'"></p-button>
+      </div>
+    </div>
+  </ng-template>
 </p-table>
-<p-button label="Add" (click)="showDialog(false)" [disabled]="isButtonDisabledAddBtn" *jhiHasAnyAuthority="'ROLE_ADMIN'"></p-button>
-<p-button label="Delete" [disabled]="buttonActivated" (onClick)="deleteSelectedRow()" *jhiHasAnyAuthority="'ROLE_ADMIN'"></p-button>
-<p-button label="Edit" (click)="showDialog(true)" [disabled]="buttonActivated" *jhiHasAnyAuthority="'ROLE_ADMIN'"></p-button>
+
 <p-dialog
   header="Title"
   [(visible)]="display"
@@ -34,7 +55,7 @@
 >
   <div>
     <div>
-      <input id="float-input-one" type="text" pInputText [(ngModel)]="jobTitle" />
+      <input id="float-input-one" type="text" onkeydown="return /[a-z]/i.test(event.key)" pInputText [(ngModel)]="jobTitle" />
       <label for="float-input-one">Job title</label>
     </div>
     <div>

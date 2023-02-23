@@ -16,7 +16,6 @@ export class OperationHistoryComponent implements OnInit {
   operationHistory: any;
   selectedOperationHistory: any;
   buttonActivated = true;
-  display = false;
   newOperation = '';
   constructor(
     private messageService: MessageService,
@@ -60,10 +59,6 @@ export class OperationHistoryComponent implements OnInit {
         console.log('nie znaleziono stanowiska z tym id');
       }
     });
-  }
-
-  showDialog(): void {
-    this.display = true;
   }
 
   showToast(): void {

@@ -2,17 +2,21 @@ tr th,
 tr td {
   text-align: center;
   width: 25%;
+  color: #fff;
+  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity));
 }
 
-.p-buttons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+tr th {
+  font-size: 20px;
 }
 
-.p-buttons button {
-  // padding: 0 40px;
-  text-align: center;
-  background-color: red;
-  width: 300px;
+.search-input {
+  background-color: rgba($color: royalblue, $alpha: 0.1);
+  color: #fff;
+  border: 5px solid royalblue;
+  width: 16vw;
+}
+
+.p-highlight > td {
+  background-color: royalblue;
 }

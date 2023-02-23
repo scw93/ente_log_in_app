@@ -11,7 +11,16 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 
 @NgModule({
-  imports: [ToastModule, InputTextModule, DialogModule, ButtonModule, TableModule, SharedModule, RouterModule.forChild([EMPLOYEE_ROUTE])],
+  imports: [
+    InputTextModule,
+    ToastModule,
+    InputTextModule,
+    DialogModule,
+    ButtonModule,
+    TableModule,
+    SharedModule,
+    RouterModule.forChild([EMPLOYEE_ROUTE]),
+  ],
   declarations: [EmployeeComponent],
 })
 export class EmployeeModule {}

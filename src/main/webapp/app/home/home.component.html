@@ -2,22 +2,22 @@
   <section class="container">
     <div [ngSwitch]="account !== null">
       <div class="img-container">
-        <img src="./content/images/2137.jpg" alt="" class="chuj" />
-        <img src="./content/images/2138.jpg" alt="" class="chuj2" />
+        <img src="./content/images/2137.jpg" alt="" class="img-bgc-1" />
+        <img src="./content/images/2138.jpg" alt="" class="img-bgc-2" />
       </div>
       <div class="header">
-        <h1>Welcome in ENTE</h1>
+        <!-- <h1>Welcome</h1> -->
         <div class="buttons-container" *ngSwitchCase="false">
           <button (click)="login()">Sign in</button>
           <div class="interrupter"></div>
           <button routerLink="account/register">Register</button>
         </div>
-      </div>
 
-      <div class="alert alert-success" *ngSwitchCase="true">
-        <span id="home-logged-message" *ngIf="account" jhiTranslate="home.logged.message" [translateValues]="{ username: account.login }"
-          >Jesteś zalogowany jako użytkownik "{{ account.login }}".</span
-        >
+        <div class="alert alert-success" *ngSwitchCase="true">
+          <span id="home-logged-message" *ngIf="account" jhiTranslate="home.logged.message" [translateValues]="{ username: account.login }"
+            >Jesteś zalogowany jako użytkownik "{{ account.login }}".</span
+          >
+        </div>
       </div>
 
       <!-- <div class="alert alert-warning" *ngSwitchCase="false"> -->

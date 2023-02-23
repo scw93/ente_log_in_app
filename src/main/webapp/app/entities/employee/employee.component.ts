@@ -78,7 +78,8 @@ export class EmployeeComponent implements OnInit {
       // eslint-disable-next-line no-console
       console.log('dodano nowego uzytkownika: ', response);
       this.getAllEmployees();
-      this.showSuccess();
+      this.showSuccess('Added a new employee.');
+      this.clearModel();
     });
     this.hideDialog();
   }
@@ -88,6 +89,7 @@ export class EmployeeComponent implements OnInit {
       // eslint-disable-next-line no-console
       console.log('zaktualizowano nowego uzytkownika: ', response);
       this.getAllEmployees();
+      this.showSuccess('The record was updated.');
     });
     this.hideDialog();
   }
@@ -105,10 +107,10 @@ export class EmployeeComponent implements OnInit {
   }
 
   showInfo(): void {
-    this.messageService.add({ severity: 'info', summary: 'Info Message!', detail: 'Record was deleted.' });
+    this.messageService.add({ severity: 'info', summary: 'Info Message!', detail: 'The record was deleted.' });
   }
 
-  showSuccess(): void {
-    this.messageService.add({ severity: 'success', summary: 'Success!', detail: 'SIemano' });
+  showSuccess(response: string): void {
+    this.messageService.add({ severity: 'success', summary: 'Success!', detail: response });
   }
 }

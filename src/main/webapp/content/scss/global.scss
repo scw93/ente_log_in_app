@@ -6,6 +6,10 @@
 Bootstrap tweaks
 ===============================================================*/
 
+body {
+  overflow-y: hidden;
+}
+
 body,
 h1,
 h2,
@@ -71,7 +75,7 @@ Generic styles
 
 .jh-card {
   border: none;
-  height: 84vh;
+  height: 100vh;
 }
 
 .error {
@@ -234,6 +238,45 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
       margin-left: 0.5em;
     }
   }
+}
+
+.p-button {
+  width: 300px;
+}
+
+.p-datatable-header {
+  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+  border: 1px solid rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.p-datatable-header div {
+  text-align: right;
+  color: white;
+}
+
+.p-datatable-footer {
+  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+  border-bottom: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.interrupter-bts {
+  margin: 0 20px;
+}
+
+.p-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.p-datatable .p-datatable-tbody > tr.p-highlight {
+  background-image: none;
+  background-color: green !important;
 }
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */
