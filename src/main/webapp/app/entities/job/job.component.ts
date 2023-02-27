@@ -57,11 +57,11 @@ export class JobComponent implements OnInit {
         // eslint-disable-next-line no-console
         console.log('dodano nowego uzytkownika: ', response);
         this.getAllJobs();
-        this.showSuccess('Added new job title.');
+        this.showToast('success', 'Success!', 'Added a new employee.');
         this.hideDialog();
       });
     } else {
-      this.showError();
+      this.showToast('error', 'Error!', 'Cannot add a new user.');
     }
   }
 
@@ -72,11 +72,11 @@ export class JobComponent implements OnInit {
         // eslint-disable-next-line no-console
         console.log('zaktualizowano nowego uzytkownika: ', response);
         this.getAllJobs();
-        this.showSuccess('The record was updated.');
+        this.showToast('success', 'Success!', 'The record was updated.');
         this.hideDialog();
       });
     } else {
-      this.showError();
+      this.showToast('error', 'Error!', 'Cannot find the user.');
     }
   }
 
@@ -97,10 +97,11 @@ export class JobComponent implements OnInit {
     this.jobService.deleteJob(this.selectedJob.id).subscribe(response => {
       if (response) {
         this.getAllJobs();
-        this.showInfo();
+        this.showToast('info', 'Info Message!', 'The record was deleted.');
       } else {
         // eslint-disable-next-line no-console
         console.log('nie znaleziono stanowiska z tym id');
+        this.showToast('error', 'Error!', 'Cannot find the user with that id.');
       }
     });
   }
@@ -128,15 +129,19 @@ export class JobComponent implements OnInit {
     this.display = false;
   }
 
-  showError(): void {
-    this.messageService.add({ severity: 'error', summary: 'Error!', detail: 'Cannot add an empty value.' });
-  }
+  // showError(): void {
+  //   this.messageService.add({ severity: 'error', summary: 'Error!', detail: 'Cannot add an empty value.' });
+  // }
 
-  showSuccess(response: string): void {
-    this.messageService.add({ severity: 'success', summary: 'Success!', detail: response });
-  }
+  // showSuccess(response: string): void {
+  //   this.messageService.add({ severity: 'success', summary: 'Success!', detail: response });
+  // }
 
-  showInfo(): void {
-    this.messageService.add({ severity: 'info', summary: 'Info Message!', detail: 'The record was deleted.' });
+  // showInfo(): void {
+  //   this.messageService.add({ severity: 'info', summary: 'Info Message!', detail: 'The record was deleted.' });
+  // }
+
+  showToast(severity: string, summary: string, detail: string): void {
+    this.messageService.add({ severity, summary, detail });
   }
 }

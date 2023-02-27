@@ -80,8 +80,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         log.debug("Request to delete Employee : {}", id);
         Optional<Employee> employee = employeeRepository.findById(id);
         if (employee.isPresent()) {
-            employee.get().setDeleted(true);
-            employeeRepository.save(employee.get());
+            Employee tmpEmployee = employee.get();
+            tmpEmployee.setDeleted(true);
+            employeeRepository.save(tmpEmployee);
             return true;
         } else {
             return false;

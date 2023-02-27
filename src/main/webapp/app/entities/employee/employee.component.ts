@@ -57,10 +57,11 @@ export class EmployeeComponent implements OnInit {
     this.employeeService.delete(this.selectedEmployee.id!).subscribe(response => {
       if (response) {
         this.getAllEmployees();
-        this.showInfo();
+        this.showToast('info', 'Info Message!', 'The record was deleted');
       } else {
         // eslint-disable-next-line no-console
         console.log('nie znaleziono pracownika z tym id');
+        this.showToast('error', 'Error!', 'Cannot find the user with that id.');
       }
     });
   }
@@ -78,7 +79,7 @@ export class EmployeeComponent implements OnInit {
       // eslint-disable-next-line no-console
       console.log('dodano nowego uzytkownika: ', response);
       this.getAllEmployees();
-      this.showSuccess('Added a new employee.');
+      this.showToast('success', 'Success!', 'Added a new employee.');
       this.clearModel();
     });
     this.hideDialog();
@@ -89,7 +90,7 @@ export class EmployeeComponent implements OnInit {
       // eslint-disable-next-line no-console
       console.log('zaktualizowano nowego uzytkownika: ', response);
       this.getAllEmployees();
-      this.showSuccess('The record was updated.');
+      this.showToast('success', 'Success!', 'The record was updated.');
     });
     this.hideDialog();
   }
@@ -106,11 +107,7 @@ export class EmployeeComponent implements OnInit {
     this.display = false;
   }
 
-  showInfo(): void {
-    this.messageService.add({ severity: 'info', summary: 'Info Message!', detail: 'The record was deleted.' });
-  }
-
-  showSuccess(response: string): void {
-    this.messageService.add({ severity: 'success', summary: 'Success!', detail: response });
+  showToast(severity: string, summary: string, detail: string): void {
+    this.messageService.add({ severity, summary, detail });
   }
 }

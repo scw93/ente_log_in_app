@@ -1,25 +1,42 @@
+ver 1.0.9
+- poprawa soft delete w tabeli employee
+- stworzenie uniwersalnej funkcji przy wykorzystaniu biblioteki primeng (toasty - wyskakujące powiadomienia)
+
+ver 1.0.8
+- walidacja input'ów
+- edycja styli dla tabel
+- poprawienie oraz naprawa funkcjonalności niektórych funkcji w tabelach
+
+
 ver 1.0.7
 - dodanie zapytań query do tabel employee oraz job
 
+
 ver 1.0.6
 - głównie tworzenie front endu na 1 stronie powitalnej
+
 
 ver 1.0.5
 - dodanie soft delete do zakładki OperationHistory 
 - dodanie toast buttona
 
+
 ver 1.0.4
 - dodanie wyskakujących modali
 - dodanie toast buttonów
 
+
 ver 1.0.3
 - dodanie funkcjonalności do tabelki employee (przyciski add, delete, edit)
+
 
 ver 1.0.2
 - dodanie zakładek z obsługą tabel (Employee, job, operationHistory)
 
+
 ver 1.0.1
 - import pliku .jdl
+
 
 ver 1.0.0
 - inicjalizacja projektu
