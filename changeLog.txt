@@ -1,3 +1,7 @@
+ver 1.1.0
+- stworzenie nowej relacyjnej tabelki employee2Job
+- dodanie tabelki oraz dropdowna z primeng
+
 ver 1.0.9
 - poprawa soft delete w tabeli employee
 - stworzenie uniwersalnej funkcji przy wykorzystaniu biblioteki primeng (toasty - wyskakujące powiadomienia)
