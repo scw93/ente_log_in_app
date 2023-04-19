@@ -1,3 +1,6 @@
+ver 1.1.1
+- stworzenie softDelete w tabelce employee2Job
+
 ver 1.1.0
 - stworzenie nowej relacyjnej tabelki employee2Job
 - dodanie tabelki oraz dropdowna z primeng

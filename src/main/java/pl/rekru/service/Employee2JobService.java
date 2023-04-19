@@ -30,7 +30,7 @@ public interface Employee2JobService {
      * @param employee2Job the entity to update partially.
      * @return the persisted entity.
      */
-    Optional<Employee2Job> partialUpdate(Employee2Job employee2Job);
+    // Optional<Employee2Job> partialUpdate(Employee2Job employee2Job);
 
     /**
      * Get all the employee2Jobs.
@@ -52,5 +52,5 @@ public interface Employee2JobService {
      *
      * @param id the id of the entity.
      */
-    void delete(Long id);
+    Boolean delete(Long id);
 }

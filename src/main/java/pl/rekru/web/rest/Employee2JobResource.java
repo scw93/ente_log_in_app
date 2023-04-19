@@ -105,30 +105,30 @@ public class Employee2JobResource {
      * or with status {@code 500 (Internal Server Error)} if the employee2Job couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/employee-2-jobs/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<Employee2Job> partialUpdateEmployee2Job(
-        @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody Employee2Job employee2Job
-    ) throws URISyntaxException {
-        log.debug("REST request to partial update Employee2Job partially : {}, {}", id, employee2Job);
-        if (employee2Job.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, employee2Job.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
+    // @PatchMapping(value = "/employee-2-jobs/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    // public ResponseEntity<Employee2Job> partialUpdateEmployee2Job(
+    //     @PathVariable(value = "id", required = false) final Long id,
+    //     @RequestBody Employee2Job employee2Job
+    // ) throws URISyntaxException {
+    //     log.debug("REST request to partial update Employee2Job partially : {}, {}", id, employee2Job);
+    //     if (employee2Job.getId() == null) {
+    //         throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+    //     }
+    //     if (!Objects.equals(id, employee2Job.getId())) {
+    //         throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
+    //     }
 
-        if (!employee2JobRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
-        }
+    //     if (!employee2JobRepository.existsById(id)) {
+    //         throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+    //     }
 
-        Optional<Employee2Job> result = employee2JobService.partialUpdate(employee2Job);
+    //     // Optional<Employee2Job> result = employee2JobService.partialUpdate(employee2Job);
 
-        return ResponseUtil.wrapOrNotFound(
-            result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, employee2Job.getId().toString())
-        );
-    }
+    //     return ResponseUtil.wrapOrNotFound(
+    //         result,
+    //         HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, employee2Job.getId().toString())
+    //     );
+    // }
 
     /**
      * {@code GET  /employee-2-jobs} : get all the employee2Jobs.
@@ -136,7 +136,7 @@ public class Employee2JobResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of employee2Jobs in body.
      */
     @GetMapping("/employee-2-jobs")
-    public List<Employee2Job> getAllEmployee2Jobs() {
+    public List<Employee2Job> getAllEmployees() {
         log.debug("REST request to get all Employee2Jobs");
         return employee2JobService.findAll();
     }
@@ -160,13 +160,17 @@ public class Employee2JobResource {
      * @param id the id of the employee2Job to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
-    @DeleteMapping("/employee-2-jobs/{id}")
-    public ResponseEntity<Void> deleteEmployee2Job(@PathVariable Long id) {
+    @DeleteMapping("/employee-2-jobs/{id}") // przeczytać o deleteMapping itp
+    public Boolean deleteEmployee2Job(@PathVariable Long id) {
         log.debug("REST request to delete Employee2Job : {}", id);
-        employee2JobService.delete(id);
-        return ResponseEntity
-            .noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
-            .build();
+        return employee2JobService.delete(id);
     }
+    // public ResponseEntity<Void> deleteEmployee2Job(@PathVariable Long id) {
+    //     log.debug("REST request to delete Employee2Job : {}", id);
+    // employee2JobService.delete(id);
+    //     return ResponseEntity
+    //         .noContent()
+    //         .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
+    //         .build();
+    // }
 }

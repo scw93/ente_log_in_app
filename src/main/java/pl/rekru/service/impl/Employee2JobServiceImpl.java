@@ -37,30 +37,30 @@ public class Employee2JobServiceImpl implements Employee2JobService {
         return employee2JobRepository.save(employee2Job);
     }
 
-    @Override
-    public Optional<Employee2Job> partialUpdate(Employee2Job employee2Job) {
-        log.debug("Request to partially update Employee2Job : {}", employee2Job);
+    // @Override
+    // public Optional<Employee2Job> partialUpdate(Employee2Job employee2Job) {
+    //     log.debug("Request to partially update Employee2Job : {}", employee2Job);
 
-        return employee2JobRepository
-            .findById(employee2Job.getId())
-            .map(existingEmployee2Job -> {
-                if (employee2Job.getEmployeeId() != null) {
-                    existingEmployee2Job.setEmployeeId(employee2Job.getEmployeeId());
-                }
-                if (employee2Job.getJobId() != null) {
-                    existingEmployee2Job.setJobId(employee2Job.getJobId());
-                }
+    //     return employee2JobRepository
+    //         .findById(employee2Job.getId())
+    //         .map(existingEmployee2Job -> {
+    //             if (employee2Job.getEmployee() != null) {
+    //                 existingEmployee2Job.setEmployeeId(employee2Job.getEmployee());
+    //             }
+    //             if (employee2Job.getJobId() != null) {
+    //                 existingEmployee2Job.setJobId(employee2Job.getJobId());
+    //             }
 
-                return existingEmployee2Job;
-            })
-            .map(employee2JobRepository::save);
-    }
+    //             return existingEmployee2Job;
+    //         })
+    //         .map(employee2JobRepository::save);
+    // }
 
     @Override
     @Transactional(readOnly = true)
     public List<Employee2Job> findAll() {
         log.debug("Request to get all Employee2Jobs");
-        return employee2JobRepository.findAll();
+        return employee2JobRepository.findAllByDeletedIsNullOrderById();
     }
 
     @Override
@@ -71,8 +71,16 @@ public class Employee2JobServiceImpl implements Employee2JobService {
     }
 
     @Override
-    public void delete(Long id) {
+    public Boolean delete(Long id) {
         log.debug("Request to delete Employee2Job : {}", id);
-        employee2JobRepository.deleteById(id);
+        Optional<Employee2Job> employee2Job = employee2JobRepository.findById(id);
+        if (employee2Job.isPresent()) {
+            Employee2Job tempEmployee2Job = employee2Job.get(); // z optionala
+            tempEmployee2Job.setDeleted(true);
+            employee2JobRepository.save(tempEmployee2Job);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
