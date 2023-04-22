@@ -1,5 +1,5 @@
 /* eslint-disable prefer-const */
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AccountService } from 'app/core/auth/account.service';
@@ -8,6 +8,8 @@ import { Employee2JobService } from './employee2Job.service';
 import { MessageService } from 'primeng/api';
 import { EmployeeService } from '../employee/employee.service';
 import { JobService } from '../job/job.service';
+import { Job } from '../job/job.model';
+import { Employee } from '../employee/employee.model';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -18,17 +20,17 @@ import { JobService } from '../job/job.service';
 })
 export class Employee2JobComponent implements OnInit {
   employee2Jobs: any;
-  employees: any;
-  selectedEmployee: any;
-  jobs: any;
-  selectedJob: any;
+  employees: Employee[] = [];
+  selectedEmployee: Employee | undefined = new Employee();
+  jobs: Job[] = [];
+  selectedJob: Job | undefined = new Job();
   employee2Job: Employee2Job = new Employee2Job();
-  selectedemployee2Job: any;
+  selectedemployee2Job: Employee2Job = new Employee2Job();
   buttonActivated = true;
   isButtonDisabledAddBtn = false;
   display = false;
-  // jobTitle = '';
   isEdit = false;
+
   constructor(
     private messageService: MessageService,
     private accountService: AccountService,
@@ -63,7 +65,7 @@ export class Employee2JobComponent implements OnInit {
   }
 
   deleteSelectedRow(): void {
-    this.employee2JobService.deleteJob(this.selectedemployee2Job.id).subscribe(response => {
+    this.employee2JobService.deleteJob(this.selectedemployee2Job.id!).subscribe(response => {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (response) {
         this.getAllEmployees();
@@ -86,70 +88,27 @@ export class Employee2JobComponent implements OnInit {
     this.isButtonDisabledAddBtn = false;
   }
 
-  // getAllJobs(): void {
-  //   this.employee2JobService.getAllJobs().subscribe(response => {
-  //     this.jobs = response;
-  //   });
-  // }
-
-  // dialogButtonEvent(): void {
-  //   if (!this.isEdit) {
-  //     this.addJob();
-  //   } else {
-  //     this.updateJob();
-  //   }
-  // }
-
-  // addJob(): void {
-  //   this.employee2Job = new Employee2Job();
-  //   this.job.jobTitle = this.jobTitle;
-  //   if (this.jobTitle !== '') {
-  //     this.Employee2JobService.create(this.job).subscribe(response => {
-  //       // eslint-disable-next-line no-console
-  //       console.log('dodano nowego uzytkownika: ', response);
-  //       this.getAllJobs();
-  //       this.showToast('success', 'Success!', 'Added a new employee.');
-  //       this.hideDialog();
-  //     });
-  //   } else {
-  //     this.showToast('error', 'Error!', 'Cannot add a new user.');
-  //   }
-  // }
-
-  // updateJob(): void {
-  //   this.selectedJob.jobTitle = this.jobTitle;
-  //   if (this.jobTitle !== '') {
-  //     this.jobService.update(this.selectedJob.id!, this.selectedJob).subscribe(response => {
-  //       // eslint-disable-next-line no-console
-  //       console.log('zaktualizowano nowego uzytkownika: ', response);
-  //       this.getAllJobs();
-  //       this.showToast('success', 'Success!', 'The record was updated.');
-  //       this.hideDialog();
-  //     });
-  //   } else {
-  //     this.showToast('error', 'Error!', 'Cannot find the user.');
-  //   }
-  // }
-
-  // deleteSelectedRow(): void {
-  //   // eslint-disable-next-line no-console
-  //   console.log('usuwam rekord z nr id: ', this.selectedJob.id);
-  //   this.jobService.deleteJob(this.selectedJob.id).subscribe(response => {
-  //     if (response) {
-  //       this.getAllJobs();
-  //       this.showToast('info', 'Info Message!', 'The record was deleted.');
-  //     } else {
-  //       // eslint-disable-next-line no-console
-  //       console.log('nie znaleziono stanowiska z tym id');
-  //       this.showToast('error', 'Error!', 'Cannot find the user with that id.');
-  //     }
-  //   });
-  // }
+  updateEmployee(): void {
+    if (this.selectedJob?.jobTitle !== this.selectedemployee2Job.job?.jobTitle) {
+      this.selectedemployee2Job.job = this.selectedJob;
+      this.employee2JobService.update(this.selectedemployee2Job).subscribe(response => {
+        // eslint-disable-next-line no-console
+        console.log('zaktualizowano nowego uzytkownika: ', response);
+        this.getAllEmployees();
+      });
+      this.hideDialog();
+    } else {
+      this.showToast('info', 'Info Message!', 'Change Job first!');
+    }
+  }
 
   showDialog(flag: boolean): void {
+    if (typeof this.selectedemployee2Job.job !== 'undefined' && typeof this.selectedemployee2Job.employee !== 'undefined') {
+      this.selectedJob = this.jobs.find(job => this.selectedemployee2Job.job?.jobTitle === job.jobTitle);
+      this.selectedEmployee = this.employees.find(employee => this.selectedemployee2Job.employee?.id === employee.id);
+    }
     this.display = true;
     if (flag) {
-      // this.fillModel();
       this.isEdit = true;
     } else {
       // this.clearModel();
@@ -169,18 +128,6 @@ export class Employee2JobComponent implements OnInit {
   hideDialog(): void {
     this.display = false;
   }
-
-  // showError(): void {
-  //   this.messageService.add({ severity: 'error', summary: 'Error!', detail: 'Cannot add an empty value.' });
-  // }
-
-  // showSuccess(response: string): void {
-  //   this.messageService.add({ severity: 'success', summary: 'Success!', detail: response });
-  // }
-
-  // showInfo(): void {
-  //   this.messageService.add({ severity: 'info', summary: 'Info Message!', detail: 'The record was deleted.' });
-  // }
 
   showToast(severity: string, summary: string, detail: string): void {
     this.messageService.add({ severity, summary, detail });

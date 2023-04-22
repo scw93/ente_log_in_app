@@ -1,9 +1,13 @@
+ver 1.1.2
+- dodanie do dropdown'ów automatycznego wypełniania na podstawie klikniętego rekordu w tabeli employee2Job
+- dodanie Metody HTTP "PUT", która aktualizuje dany rekord w tabeli employee2Job
+
 ver 1.1.1
-- stworzenie softDelete w tabelce employee2Job
+- stworzenie softDelete w tabeli employee2Job
 
 ver 1.1.0
-- stworzenie nowej relacyjnej tabelki employee2Job
-- dodanie tabelki oraz dropdowna z primeng
+- stworzenie nowej relacyjnej tabeli employee2Job
+- dodanie tabeli oraz dropdowna z primeng
 
 ver 1.0.9
 - poprawa soft delete w tabeli employee
@@ -34,7 +38,7 @@ ver 1.0.4
 
 
 ver 1.0.3
-- dodanie funkcjonalności do tabelki employee (przyciski add, delete, edit)
+- dodanie funkcjonalności do tabeli employee (przyciski add, delete, edit)
 
 
 ver 1.0.2

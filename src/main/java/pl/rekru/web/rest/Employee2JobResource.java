@@ -63,36 +63,48 @@ public class Employee2JobResource {
     /**
      * {@code PUT  /employee-2-jobs/:id} : Updates an existing employee2Job.
      *
-     * @param id the id of the employee2Job to save.
      * @param employee2Job the employee2Job to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated employee2Job,
      * or with status {@code 400 (Bad Request)} if the employee2Job is not valid,
      * or with status {@code 500 (Internal Server Error)} if the employee2Job couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping("/employee-2-jobs/{id}")
-    public ResponseEntity<Employee2Job> updateEmployee2Job(
-        @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody Employee2Job employee2Job
-    ) throws URISyntaxException {
-        log.debug("REST request to update Employee2Job : {}, {}", id, employee2Job);
-        if (employee2Job.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, employee2Job.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
-        if (!employee2JobRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
-        }
-
+    @PutMapping("/employee-2-jobs")
+    public ResponseEntity<Employee2Job> updateEmployee2Job(@RequestBody Employee2Job employee2Job) throws URISyntaxException {
+        log.debug("REST request to save Employee : {}", employee2Job);
+        // if (employee2Job.getId() == null) {
+        //     throw new BadRequestAlertException("A new employee cannot already have an ID", ENTITY_NAME, "idexists");
+        // }
         Employee2Job result = employee2JobService.update(employee2Job);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, employee2Job.getId().toString()))
             .body(result);
     }
+
+    // @PutMapping("/employee-2-jobs/")
+    // public ResponseEntity<Employee2Job> updateEmployee2Job(
+    //     @PathVariable(value = "id", required = false) final Long id,
+    //     @RequestBody Employee2Job employee2Job
+    // ) throws URISyntaxException {
+    //     log.debug("REST request to update Employee2Job : {}, {}", id, employee2Job);
+    //     if (employee2Job.getId() == null) {
+    //         throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+    //     }
+    //     if (!Objects.equals(id, employee2Job.getId())) {
+    //         throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
+    //     }
+
+    //     if (!employee2JobRepository.existsById(id)) {
+    //         throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+    //     }
+
+    //     Employee2Job result = employee2JobService.update(employee2Job);
+    //     return ResponseEntity
+    //         .ok()
+    //         .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, employee2Job.getId().toString()))
+    //         .body(result);
+    // }
 
     /**
      * {@code PATCH  /employee-2-jobs/:id} : Partial updates given fields of an existing employee2Job, field will ignore if it is null
@@ -165,12 +177,4 @@ public class Employee2JobResource {
         log.debug("REST request to delete Employee2Job : {}", id);
         return employee2JobService.delete(id);
     }
-    // public ResponseEntity<Void> deleteEmployee2Job(@PathVariable Long id) {
-    //     log.debug("REST request to delete Employee2Job : {}", id);
-    // employee2JobService.delete(id);
-    //     return ResponseEntity
-    //         .noContent()
-    //         .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
-    //         .build();
-    // }
 }

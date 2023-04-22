@@ -11,7 +11,10 @@
   stateKey="statedemo-session"
   (onRowSelect)="unlockButtons()"
   (onRowUnselect)="lockbuttons()"
+  styleClass="my-table"
+  class="p-table"
 >
+  >
   <ng-template pTemplate="header">
     <tr>
       <th pSortableColumn="name" style="width: 25%">Name <p-sortIcon field="name"></p-sortIcon></th>
@@ -44,13 +47,11 @@
     <tr [pSelectableRow]="employee2Job">
       <td>
         <span class="p-column-title">Name</span>
-        {{ employee2Job.employee.firstName }} {{ employee2Job.employee.lastName }}
+        {{ employee2Job.employee.firstName }} {{ employee2Job.employee.firstName }}
       </td>
       <td>
         <span class="p-column-title">Role</span>
         {{ employee2Job.job.jobTitle }}
-        <!-- <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag> -->
-        <!-- tutaj miejsce na Dropdown -->
       </td>
     </tr>
   </ng-template>
@@ -89,6 +90,7 @@
   <div>
     <div>
       <p-dropdown
+        class="dropdownContainer"
         [options]="employees"
         [(ngModel)]="selectedEmployee"
         optionLabel="fullName"
@@ -98,6 +100,7 @@
     </div>
     <div>
       <p-dropdown
+        class="dropdownContainer"
         [options]="jobs"
         [(ngModel)]="selectedJob"
         optionLabel="jobTitle"
@@ -106,7 +109,13 @@
       ></p-dropdown>
     </div>
     <div>
-      <p-button label="Update"></p-button>
+      <div>
+        <p-button label="Add"></p-button>
+      </div>
+      <div>
+        <p-button label="Update" (click)="updateEmployee()"></p-button>
+      </div>
     </div>
   </div>
 </p-dialog>
+<p-toast></p-toast>

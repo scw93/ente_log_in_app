@@ -9,20 +9,20 @@ import { ApplicationConfigService } from 'app/core/config/application-config.ser
 export class Employee2JobService {
   constructor(private http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
-  getAllEmployees(): Observable<{}> {
-    return this.http.get(this.applicationConfigService.getEndpointFor('api/employee-2-jobs'));
+  getAllEmployees(): Observable<Employee2Job[]> {
+    return this.http.get<Employee2Job[]>(this.applicationConfigService.getEndpointFor('api/employee-2-jobs'));
   }
 
   deleteJob(id: number): Observable<{}> {
     return this.http.delete(`${this.applicationConfigService.getEndpointFor('api/employee-2-jobs')}/${id}`);
   }
 
+  update(employee2Job: Employee2Job): Observable<Employee2Job> {
+    return this.http.put<Employee2Job>(this.applicationConfigService.getEndpointFor('api/employee-2-jobs'), employee2Job);
+  }
+
   // deleteJob(id: number): Observable<any> {
   //   return this.http.delete(`${this.applicationConfigService.getEndpointFor('api/jobs')}/${id}`);
-  // }
-
-  // update(id: number, job: Job): Observable<Job> {
-  //   return this.http.put<Job>(`${this.applicationConfigService.getEndpointFor('api/jobs')}/${id}`, job);
   // }
 
   // create(job: Job): Observable<Job> {
