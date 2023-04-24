@@ -7,12 +7,10 @@
   [tableStyle]="{ 'min-width': '50rem' }"
   [rows]="10"
   [paginator]="true"
-  stateStorage="session"
   stateKey="statedemo-session"
+  stateStorage="session"
   (onRowSelect)="unlockButtons()"
   (onRowUnselect)="lockbuttons()"
-  styleClass="my-table"
-  class="p-table"
 >
   >
   <ng-template pTemplate="header">
@@ -108,11 +106,11 @@
         [showClear]="true"
       ></p-dropdown>
     </div>
-    <div>
-      <div>
-        <p-button label="Add"></p-button>
+    <div [ngSwitch]="isAdd()">
+      <div *ngSwitchCase="true">
+        <p-button label="Add" (click)="addEmployee()"></p-button>
       </div>
-      <div>
+      <div *ngSwitchCase="false">
         <p-button label="Update" (click)="updateEmployee()"></p-button>
       </div>
     </div>

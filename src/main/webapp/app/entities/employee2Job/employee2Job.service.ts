@@ -13,7 +13,7 @@ export class Employee2JobService {
     return this.http.get<Employee2Job[]>(this.applicationConfigService.getEndpointFor('api/employee-2-jobs'));
   }
 
-  deleteJob(id: number): Observable<{}> {
+  deleteEmployee2Job(id: number): Observable<{}> {
     return this.http.delete(`${this.applicationConfigService.getEndpointFor('api/employee-2-jobs')}/${id}`);
   }
 
@@ -21,11 +21,7 @@ export class Employee2JobService {
     return this.http.put<Employee2Job>(this.applicationConfigService.getEndpointFor('api/employee-2-jobs'), employee2Job);
   }
 
-  // deleteJob(id: number): Observable<any> {
-  //   return this.http.delete(`${this.applicationConfigService.getEndpointFor('api/jobs')}/${id}`);
-  // }
-
-  // create(job: Job): Observable<Job> {
-  //   return this.http.post<Job>(this.applicationConfigService.getEndpointFor('api/jobs'), job);
-  // }
+  create(employee2Job: Employee2Job): Observable<Employee2Job> {
+    return this.http.post<Employee2Job>(this.applicationConfigService.getEndpointFor('api/employee-2-jobs'), employee2Job);
+  }
 }

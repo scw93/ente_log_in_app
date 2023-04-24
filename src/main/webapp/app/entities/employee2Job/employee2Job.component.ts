@@ -29,7 +29,6 @@ export class Employee2JobComponent implements OnInit {
   buttonActivated = true;
   isButtonDisabledAddBtn = false;
   display = false;
-  isEdit = false;
 
   constructor(
     private messageService: MessageService,
@@ -65,7 +64,7 @@ export class Employee2JobComponent implements OnInit {
   }
 
   deleteSelectedRow(): void {
-    this.employee2JobService.deleteJob(this.selectedemployee2Job.id!).subscribe(response => {
+    this.employee2JobService.deleteEmployee2Job(this.selectedemployee2Job.id!).subscribe(response => {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (response) {
         this.getAllEmployees();
@@ -76,6 +75,18 @@ export class Employee2JobComponent implements OnInit {
         this.showToast('error', 'Error!', 'Cannot find the user with that id.');
       }
     });
+  }
+
+  addEmployee(): void {
+    this.employee2Job.job = this.selectedJob;
+    this.employee2Job.employee = this.selectedEmployee;
+    this.employee2JobService.create(this.employee2Job).subscribe(response => {
+      // eslint-disable-next-line no-console
+      console.log('dodano nowego uzytkownika: ', response);
+      this.getAllEmployees();
+      this.showToast('success', 'Success!', 'Added a new employee.');
+    });
+    this.hideDialog();
   }
 
   unlockButtons(): void {
@@ -95,6 +106,7 @@ export class Employee2JobComponent implements OnInit {
         // eslint-disable-next-line no-console
         console.log('zaktualizowano nowego uzytkownika: ', response);
         this.getAllEmployees();
+        this.showToast('success', 'Success!', 'Employee updated.');
       });
       this.hideDialog();
     } else {
@@ -103,27 +115,17 @@ export class Employee2JobComponent implements OnInit {
   }
 
   showDialog(flag: boolean): void {
-    if (typeof this.selectedemployee2Job.job !== 'undefined' && typeof this.selectedemployee2Job.employee !== 'undefined') {
-      this.selectedJob = this.jobs.find(job => this.selectedemployee2Job.job?.jobTitle === job.jobTitle);
-      this.selectedEmployee = this.employees.find(employee => this.selectedemployee2Job.employee?.id === employee.id);
-    }
     this.display = true;
     if (flag) {
-      this.isEdit = true;
+      if (typeof this.selectedemployee2Job.job !== 'undefined' && typeof this.selectedemployee2Job.employee !== 'undefined') {
+        this.selectedJob = this.jobs.find(job => this.selectedemployee2Job.job?.jobTitle === job.jobTitle);
+        this.selectedEmployee = this.employees.find(employee => this.selectedemployee2Job.employee?.id === employee.id);
+      }
     } else {
-      // this.clearModel();
-      this.isEdit = false;
+      this.selectedJob = undefined;
+      this.selectedEmployee = undefined;
     }
   }
-
-  // fillModel(): void {
-
-  //   // this.jobTitle = this.selectedJob.jobTitle;
-  // }
-
-  // clearModel(): void {
-  //   this.jobTitle = '';
-  // }
 
   hideDialog(): void {
     this.display = false;
@@ -131,5 +133,14 @@ export class Employee2JobComponent implements OnInit {
 
   showToast(severity: string, summary: string, detail: string): void {
     this.messageService.add({ severity, summary, detail });
+  }
+
+  isAdd(): boolean {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (!this.selectedemployee2Job) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
