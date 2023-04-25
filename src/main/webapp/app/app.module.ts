@@ -29,10 +29,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { EmployeeModule } from './entities/employee/employee.module';
-import { MatTableModule } from '@angular/material/table';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   imports: [
+    ToastModule,
     TableModule,
     ButtonModule,
     BrowserModule,

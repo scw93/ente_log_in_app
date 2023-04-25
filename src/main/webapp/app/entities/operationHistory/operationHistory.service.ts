@@ -12,4 +12,8 @@ export class OperationHistoryService {
   getAllOperationsHistory(): Observable<{}> {
     return this.http.get(this.applicationConfigService.getEndpointFor('api/operation-histories'));
   }
+
+  deleteOperationHistory(id: number): Observable<any> {
+    return this.http.delete(`${this.applicationConfigService.getEndpointFor('api/operation-histories')}/${id}`);
+  }
 }

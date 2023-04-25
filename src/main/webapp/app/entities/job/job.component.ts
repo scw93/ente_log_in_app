@@ -1,20 +1,33 @@
+/* eslint-disable prefer-const */
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AccountService } from 'app/core/auth/account.service';
+import { Job } from './job.model';
 import { JobService } from './job.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'jhi-job',
   templateUrl: './job.component.html',
-  // styleUrls: ['./employee.component.css'],
+  styleUrls: ['./job.component.scss'],
+  providers: [MessageService],
 })
 export class JobComponent implements OnInit {
   jobs: any;
-  job: any;
+  job: Job = new Job();
   selectedJob: any;
   buttonActivated = true;
-  constructor(private accountService: AccountService, private jobService: JobService, private router: Router) {}
+  isButtonDisabledAddBtn = false;
+  display = false;
+  jobTitle = '';
+  isEdit = false;
+  constructor(
+    private messageService: MessageService,
+    private accountService: AccountService,
+    private jobService: JobService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getAllJobs();
@@ -24,21 +37,58 @@ export class JobComponent implements OnInit {
 
   getAllJobs(): void {
     this.jobService.getAllJobs().subscribe(response => {
-      // eslint-disable-next-line no-console
-      console.log(response);
       this.jobs = response;
-      this.job = response;
     });
   }
 
-  unlockRow(): void {
-    // eslint-disable-next-line no-console
-    this.buttonActivated = false;
+  dialogButtonEvent(): void {
+    if (!this.isEdit) {
+      this.addJob();
+    } else {
+      this.updateJob();
+    }
   }
 
-  lockRow(): void {
+  addJob(): void {
+    this.job = new Job();
+    this.job.jobTitle = this.jobTitle;
+    if (this.jobTitle !== '') {
+      this.jobService.create(this.job).subscribe(response => {
+        // eslint-disable-next-line no-console
+        console.log('dodano nowego uzytkownika: ', response);
+        this.getAllJobs();
+        this.showToast('success', 'Success!', 'Added a new employee.');
+        this.hideDialog();
+      });
+    } else {
+      this.showToast('error', 'Error!', 'Cannot add a new user.');
+    }
+  }
+
+  updateJob(): void {
+    this.selectedJob.jobTitle = this.jobTitle;
+    if (this.jobTitle !== '') {
+      this.jobService.update(this.selectedJob.id!, this.selectedJob).subscribe(response => {
+        // eslint-disable-next-line no-console
+        console.log('zaktualizowano nowego uzytkownika: ', response);
+        this.getAllJobs();
+        this.showToast('success', 'Success!', 'The record was updated.');
+        this.hideDialog();
+      });
+    } else {
+      this.showToast('error', 'Error!', 'Cannot find the user.');
+    }
+  }
+
+  unlockButtons(): void {
     // eslint-disable-next-line no-console
+    this.buttonActivated = false;
+    this.isButtonDisabledAddBtn = true;
+  }
+
+  lockButtons(): void {
     this.buttonActivated = true;
+    this.isButtonDisabledAddBtn = false;
   }
 
   deleteSelectedRow(): void {
@@ -47,10 +97,51 @@ export class JobComponent implements OnInit {
     this.jobService.deleteJob(this.selectedJob.id).subscribe(response => {
       if (response) {
         this.getAllJobs();
+        this.showToast('info', 'Info Message!', 'The record was deleted.');
       } else {
         // eslint-disable-next-line no-console
         console.log('nie znaleziono stanowiska z tym id');
+        this.showToast('error', 'Error!', 'Cannot find the user with that id.');
       }
     });
+  }
+
+  showDialog(flag: boolean): void {
+    this.display = true;
+    if (flag) {
+      this.fillModel();
+      this.isEdit = true;
+    } else {
+      this.clearModel();
+      this.isEdit = false;
+    }
+  }
+
+  fillModel(): void {
+    this.jobTitle = this.selectedJob.jobTitle;
+  }
+
+  clearModel(): void {
+    this.jobTitle = '';
+  }
+
+  hideDialog(): void {
+    this.display = false;
+  }
+
+  // showError(): void {
+  //   this.messageService.add({ severity: 'error', summary: 'Error!', detail: 'Cannot add an empty value.' });
+  // }
+
+  // showSuccess(response: string): void {
+  //   this.messageService.add({ severity: 'success', summary: 'Success!', detail: response });
+  // }
+
+  // showInfo(): void {
+  //   this.messageService.add({ severity: 'info', summary: 'Info Message!', detail: 'The record was deleted.' });
+  // }
+
+  showToast(severity: string, summary: string, detail: string): void {
+    this.messageService.add({ severity, summary, detail });
   }
 }

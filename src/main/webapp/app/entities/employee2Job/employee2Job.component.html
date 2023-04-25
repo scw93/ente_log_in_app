@@ -1,0 +1,119 @@
+<p-table
+  #dt1
+  [value]="employee2Jobs"
+  selectionMode="single"
+  [(selection)]="selectedemployee2Job"
+  dataKey="id"
+  [tableStyle]="{ 'min-width': '50rem' }"
+  [rows]="10"
+  [paginator]="true"
+  stateKey="statedemo-session"
+  stateStorage="session"
+  (onRowSelect)="unlockButtons()"
+  (onRowUnselect)="lockbuttons()"
+>
+  >
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="name" style="width: 25%">Name <p-sortIcon field="name"></p-sortIcon></th>
+      <th pSortableColumn="role" style="width: 25%">Role <p-sortIcon field="role"></p-sortIcon></th>
+    </tr>
+    <tr>
+      <!-- <th>
+        <input
+          pInputText
+          type="text"
+          (input)="dt1.filter($event.target.value, 'name', 'contains')"
+          [value]="dt1.filters['name']?.value"
+          placeholder="Search by name"
+          class="w-full"
+        />
+      </th>
+      <th>
+        <input
+          pInputText
+          type="text"
+          (input)="dt1.filter($event.target.value, 'role', 'contains')"
+          [value]="dt1.filters['role']?.value"
+          placeholder="Search by role"
+          class="w-full"
+        />
+      </th> -->
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-employee2Job>
+    <tr [pSelectableRow]="employee2Job">
+      <td>
+        <span class="p-column-title">Name</span>
+        {{ employee2Job.employee.firstName }} {{ employee2Job.employee.firstName }}
+      </td>
+      <td>
+        <span class="p-column-title">Role</span>
+        {{ employee2Job.job.jobTitle }}
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="4">No customers found.</td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary">
+    <div class="flex align-items-center justify-content-between">
+      <div class="p-buttons">
+        <p-button
+          label="Add"
+          (onClick)="showDialog(false)"
+          [disabled]="isButtonDisabledAddBtn"
+          *jhiHasAnyAuthority="'ROLE_ADMIN'"
+        ></p-button>
+        <div class="interrupter-bts"></div>
+        <p-button label="Delete" [disabled]="buttonActivated" (onClick)="deleteSelectedRow()" *jhiHasAnyAuthority="'ROLE_ADMIN'"></p-button>
+        <div class="interrupter-bts"></div>
+        <p-button label="Edit" (onClick)="showDialog(true)" [disabled]="buttonActivated" *jhiHasAnyAuthority="'ROLE_ADMIN'"></p-button>
+      </div>
+    </div>
+  </ng-template>
+</p-table>
+<p-dialog
+  header="Title"
+  [(visible)]="display"
+  [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+  [style]="{ width: '50vw' }"
+  [modal]="true"
+  [maximizable]="true"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div>
+    <div>
+      <p-dropdown
+        class="dropdownContainer"
+        [options]="employees"
+        [(ngModel)]="selectedEmployee"
+        optionLabel="fullName"
+        placeholder="Choose an Employee"
+        [showClear]="true"
+      ></p-dropdown>
+    </div>
+    <div>
+      <p-dropdown
+        class="dropdownContainer"
+        [options]="jobs"
+        [(ngModel)]="selectedJob"
+        optionLabel="jobTitle"
+        placeholder="Choose a role for the Employee"
+        [showClear]="true"
+      ></p-dropdown>
+    </div>
+    <div [ngSwitch]="isAdd()">
+      <div *ngSwitchCase="true">
+        <p-button label="Add" (click)="addEmployee()"></p-button>
+      </div>
+      <div *ngSwitchCase="false">
+        <p-button label="Update" (click)="updateEmployee()"></p-button>
+      </div>
+    </div>
+  </div>
+</p-dialog>
+<p-toast></p-toast>

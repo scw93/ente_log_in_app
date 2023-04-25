@@ -6,11 +6,12 @@ import { JOB_ROUTE } from './job.route';
 import { JobComponent } from './job.component';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatTableModule } from '@angular/material';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
-  imports: [MatTableModule, MatSlideToggleModule, ButtonModule, TableModule, SharedModule, RouterModule.forChild([JOB_ROUTE])],
+  imports: [ToastModule, InputTextModule, DialogModule, ButtonModule, TableModule, SharedModule, RouterModule.forChild([JOB_ROUTE])],
   declarations: [JobComponent],
 })
 export class JobModule {}

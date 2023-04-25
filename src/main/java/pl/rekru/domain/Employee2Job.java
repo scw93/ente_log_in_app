@@ -21,15 +21,18 @@ public class Employee2Job implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
     @Column(name = "id")
-    private Long id;
+    private Long id; //klucz główny
 
-    @Column(name = "employee_id")
-    private Long employeeId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 
-    @Column(name = "job_id")
-    private Long jobId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "job_id")
+    private Job job;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
+    @Column(name = "deleted")
+    private Boolean deleted; // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
         return this.id;
@@ -39,23 +42,23 @@ public class Employee2Job implements Serializable {
         this.id = id;
     }
 
-    public Long getEmployeeId() {
-        return this.employeeId;
-    }
-
-    public void setEmployeeId(Long employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public Long getJobId() {
-        return this.jobId;
-    }
-
-    public void setJobId(Long jobId) {
-        this.jobId = jobId;
-    }
-
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public Job getJob() {
+        return job;
+    }
+
+    public void setJob(Job job) {
+        this.job = job;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -74,13 +77,11 @@ public class Employee2Job implements Serializable {
         return getClass().hashCode();
     }
 
-    // prettier-ignore
-    @Override
-    public String toString() {
-        return "Employee2Job{" +
-            "id=" + getId() +
-            ", employeeId=" + getEmployeeId() +
-            ", jobId=" + getJobId() +
-            "}";
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 }

@@ -160,13 +160,14 @@ public class EmployeeResource {
      * @param id the id of the employee to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
-    @DeleteMapping("/employees/{id}")
-    public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
-        log.debug("REST request to delete Employee : {}", id);
-        employeeService.delete(id);
-        return ResponseEntity
-            .noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
-            .build();
+    @DeleteMapping("/employee/{id}")
+    public Boolean deleteJob(@PathVariable Long id) {
+        log.debug("REST request to delete Job : {}", id);
+        Boolean result = employeeService.delete(id);
+        if (result) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

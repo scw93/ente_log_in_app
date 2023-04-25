@@ -44,6 +44,10 @@ import { UserRouteAccessService } from 'app/core/auth/user-route-access.service'
           path: 'operation-history',
           loadChildren: () => import('./entities/operationHistory/operationHistory.module').then(m => m.OperationHistoryModule),
         },
+        {
+          path: 'employee-2-job',
+          loadChildren: () => import('./entities/employee2Job/employee2Job.module').then(m => m.Employee2JobModule),
+        },
         navbarRoute,
         ...errorRoute,
       ],

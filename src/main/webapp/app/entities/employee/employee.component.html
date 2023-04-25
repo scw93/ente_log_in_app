@@ -1,15 +1,24 @@
+<!-- scrollHeight="70vh" -->
+
 <p-table
+  [scrollable]="true"
+  scrollHeight="70vh"
   [value]="employees"
   selectionMode="single"
   [(selection)]="selectedEmployee"
-  [tableStyle]="{ 'min-width': '50rem' }"
-  (onRowSelect)="unlockRow()"
-  (onRowUnselect)="lockRow()"
+  [tableStyle]="{ height: '50rem' }"
+  (onRowSelect)="unlockButtons()"
+  (onRowUnselect)="lockButtons()"
 >
+  <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between">
+      <input type="text" placeholder="Search" pInputText class="search-input" />
+    </div>
+  </ng-template>
   <ng-template pTemplate="header">
     <tr>
       <th>Id</th>
-      <th>First Name</th>
+      <th>Name</th>
       <th>Lastname</th>
       <th>Pesel</th>
     </tr>
@@ -22,7 +31,67 @@
       <td>{{ employee.pesel }}</td>
     </tr>
   </ng-template>
+  <ng-template pTemplate="summary">
+    <div class="flex align-items-center justify-content-between">
+      <div class="p-buttons">
+        <p-button label="Add" (onClick)="showDialog()" *jhiHasAnyAuthority="'ROLE_ADMIN'" [disabled]="isButtonDisabledAddBtn"></p-button>
+        <div class="interrupter-bts"></div>
+        <p-button
+          label="Delete"
+          [disabled]="isButtonDisabled"
+          (onClick)="deleteSelectedRow()"
+          *jhiHasAnyAuthority="'ROLE_ADMIN'"
+        ></p-button>
+        <div class="interrupter-bts"></div>
+        <p-button label="Edit" (onClick)="showDialog()" [disabled]="isButtonDisabled" *jhiHasAnyAuthority="'ROLE_ADMIN'"></p-button>
+      </div>
+    </div>
+  </ng-template>
 </p-table>
-<p-button label="Add"></p-button>
-<p-button label="Delete" [disabled]="buttonActivated" (onClick)="deleteSelectedRow()"></p-button>
-<p-button label="Edit" [disabled]="buttonActivated"></p-button>
+
+<p-dialog
+  header="Title"
+  [(visible)]="display"
+  [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+  [style]="{ width: '50vw' }"
+  [modal]="true"
+  [maximizable]="true"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div>
+    <div>
+      <input
+        id="float-input-one"
+        type="text"
+        onkeydown="return /[a-z]/i.test(event.key)"
+        pInputText
+        [(ngModel)]="selectedEmployee.firstName"
+      />
+      <label for="float-input-one">Name</label>
+    </div>
+    <div>
+      <input
+        id="float-input-two"
+        type="text"
+        onkeydown="return /[a-z]/i.test(event.key)"
+        pInputText
+        [(ngModel)]="selectedEmployee.lastName"
+      />
+      <label for="float-input-two">Lastname</label>
+    </div>
+    <div>
+      <input id="float-input-three" type="number" pInputText [(ngModel)]="selectedEmployee.pesel" />
+      <label for="float-input-three">Pesel</label>
+    </div>
+  </div>
+  <div [ngSwitch]="isAdd()">
+    <div *ngSwitchCase="true">
+      <p-button label="Add" (click)="addEmployee()"></p-button>
+    </div>
+    <div *ngSwitchCase="false">
+      <p-button label="Update" (click)="updateEmployee()"></p-button>
+    </div>
+  </div>
+</p-dialog>
+<p-toast></p-toast>

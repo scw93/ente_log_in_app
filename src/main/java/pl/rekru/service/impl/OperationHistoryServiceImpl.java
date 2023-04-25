@@ -1,5 +1,6 @@
 package pl.rekru.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -63,7 +64,14 @@ public class OperationHistoryServiceImpl implements OperationHistoryService {
     @Transactional(readOnly = true)
     public List<OperationHistory> findAll() {
         log.debug("Request to get all OperationHistories");
-        return operationHistoryRepository.findAll();
+        List<OperationHistory> allOperations = this.operationHistoryRepository.findAll();
+        List<OperationHistory> returnList = new ArrayList<>();
+        for (OperationHistory operationHistory : allOperations) {
+            if (operationHistory.getDeleted() == null) {
+                returnList.add(operationHistory);
+            }
+        }
+        return returnList;
     }
 
     @Override
@@ -74,8 +82,15 @@ public class OperationHistoryServiceImpl implements OperationHistoryService {
     }
 
     @Override
-    public void delete(Long id) {
+    public Boolean delete(Long id) {
         log.debug("Request to delete OperationHistory : {}", id);
-        operationHistoryRepository.deleteById(id);
+        Optional<OperationHistory> operationHistory = operationHistoryRepository.findById(id);
+        if (operationHistory.isPresent()) {
+            operationHistory.get().setDeleted(true);
+            operationHistoryRepository.save(operationHistory.get());
+            return true;
+        } else {
+            return false;
+        }
     }
 }

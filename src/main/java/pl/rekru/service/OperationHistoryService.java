@@ -51,6 +51,7 @@ public interface OperationHistoryService {
      * Delete the "id" operationHistory.
      *
      * @param id the id of the entity.
+     * @return
      */
-    void delete(Long id);
+    Boolean delete(Long id);
 }

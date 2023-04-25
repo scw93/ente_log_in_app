@@ -1,10 +1,85 @@
-<nav data-cy="navbar" class="navbar navbar-dark navbar-expand-md bg-dark">
+<div class="logo-ente bg-dark" routerLink="/" (click)="collapseNavbar()">
+  <img src="./content/images/ente-logo2.png" alt="Ente-logo" />
+</div>
+
+<div>
+  <div [ngSwitch]="account !== null">
+    <div *ngSwitchCase="true" class="piotrek-menu bg-dark">
+      <div
+        class="nav-item piotrek-menu__element element-margi"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        routerLink="/"
+        (click)="collapseNavbar()"
+      >
+        <span class="fa-icon-text"><fa-icon icon="home"></fa-icon> Home</span>
+      </div>
+      <div class="interrupter"></div>
+      <div
+        class="piotrek-menu__element"
+        routerLink="employee"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="collapseNavbar()"
+      >
+        <span class="fa-icon-text"><fa-icon icon="th-list"></fa-icon> Employees</span>
+      </div>
+      <div class="interrupter"></div>
+      <div
+        class="piotrek-menu__element"
+        routerLink="job"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="collapseNavbar()"
+      >
+        <span class="fa-icon-text"><fa-icon icon="th-list"></fa-icon> Job titles</span>
+      </div>
+      <div class="interrupter"></div>
+      <div
+        class="piotrek-menu__element"
+        routerLink="operation-history"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="collapseNavbar()"
+      >
+        <span class="fa-icon-text"><fa-icon icon="th-list"></fa-icon> Operations history</span>
+      </div>
+      <div class="interrupter"></div>
+      <div
+        class="piotrek-menu__element"
+        routerLink="employee-2-job"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="collapseNavbar()"
+      >
+        <span class="fa-icon-text"><fa-icon icon="th-list"></fa-icon> Employees roles</span>
+      </div>
+      <div class="interrupter"></div>
+      <div class="piotrek-menu__element" (click)="logout()" id="logout" data-cy="logout">
+        <span class="fa-icon-text"><fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>Log out</span>
+      </div>
+    </div>
+    <div *ngSwitchCase="false" class="piotrek-menu bg-dark">
+      <div
+        class="nav-item piotrek-menu__element"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        routerLink="/"
+        (click)="collapseNavbar()"
+      >
+        <span class="fa-icon-text"><fa-icon icon="home"></fa-icon> Home</span>
+      </div>
+      <div class="interrupter"></div>
+      <div class="piotrek-menu__element" (click)="login()" id="login" data-cy="login">
+        <!-- <i class="fa-sharp fa-solid fa-right-to-bracket"></i> -->
+        <span class="fa-icon-text"><fa-icon icon="sign-in-alt" [fixedWidth]="true"></fa-icon> Sign in</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <nav data-cy="navbar" class="navbar navbar-expand-md navbar-content">
   <div class="container-fluid">
-    <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
-      <span class="logo-img"></span>
-      <span jhiTranslate="global.title" class="navbar-title">Rekru</span>
-      <span class="navbar-version">{{ version }}</span>
-    </a>
     <a
       class="navbar-toggler d-lg-none"
       href="javascript:void(0);"
@@ -17,7 +92,12 @@
     >
       <fa-icon icon="bars"></fa-icon>
     </a>
-    <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="account !== null">
+    <div
+      class="navbar-collapse collapse menu-content"
+      id="navbarResponsive"
+      [ngbCollapse]="isNavbarCollapsed"
+      [ngSwitch]="account !== null"
+    >
       <ul class="navbar-nav ms-auto">
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
@@ -27,7 +107,6 @@
             </span>
           </a>
         </li>
-        <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
         <li
           *ngSwitchCase="true"
           ngbDropdown
@@ -91,7 +170,6 @@
                 <span>Stanowiska pracowników</span>
               </a>
             </li>
-            <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
           </ul>
         </li>
         <li
@@ -145,7 +223,6 @@
                 <span jhiTranslate="global.menu.admin.apidocs">API</span>
               </a>
             </li>
-            <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
           </ul>
         </li>
         <li ngbDropdown class="nav-item dropdown pointer" display="dynamic" *ngIf="languages && languages.length > 1">
@@ -237,4 +314,4 @@
       </ul>
     </div>
   </div>
-</nav>
+</nav> -->

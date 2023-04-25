@@ -1,0 +1,22 @@
+tr th,
+tr td {
+  text-align: center;
+  width: 25%;
+  color: #fff;
+  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity));
+}
+
+tr th {
+  font-size: 20px;
+}
+
+.search-input {
+  background-color: rgba($color: royalblue, $alpha: 0.1);
+  color: #fff;
+  border: 5px solid royalblue;
+  width: 16vw;
+}
+
+.p-highlight > td {
+  background-color: royalblue;
+}

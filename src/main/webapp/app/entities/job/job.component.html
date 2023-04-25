@@ -1,11 +1,18 @@
 <p-table
+  [scrollable]="true"
+  scrollHeight="70vh"
   [value]="jobs"
   selectionMode="single"
   [(selection)]="selectedJob"
   [tableStyle]="{ 'min-width': '50rem' }"
-  (onRowSelect)="unlockRow()"
-  (onRowUnselect)="lockRow()"
+  (onRowSelect)="unlockButtons()"
+  (onRowUnselect)="lockButtons()"
 >
+  <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between">
+      <input type="text" pInputText placeholder="Search" class="search-input" />
+    </div>
+  </ng-template>
   <ng-template pTemplate="header">
     <tr>
       <th>Id</th>
@@ -18,7 +25,42 @@
       <td>{{ job.jobTitle }}</td>
     </tr>
   </ng-template>
+  <ng-template pTemplate="summary">
+    <div class="flex align-items-center justify-content-between">
+      <div class="p-buttons">
+        <p-button
+          label="Add"
+          (onClick)="showDialog(false)"
+          [disabled]="isButtonDisabledAddBtn"
+          *jhiHasAnyAuthority="'ROLE_ADMIN'"
+        ></p-button>
+        <div class="interrupter-bts"></div>
+        <p-button label="Delete" [disabled]="buttonActivated" (onClick)="deleteSelectedRow()" *jhiHasAnyAuthority="'ROLE_ADMIN'"></p-button>
+        <div class="interrupter-bts"></div>
+        <p-button label="Edit" (onClick)="showDialog(true)" [disabled]="buttonActivated" *jhiHasAnyAuthority="'ROLE_ADMIN'"></p-button>
+      </div>
+    </div>
+  </ng-template>
 </p-table>
-<p-button label="Add"></p-button>
-<p-button label="Delete" [disabled]="buttonActivated" (onClick)="deleteSelectedRow()"></p-button>
-<p-button label="Edit" [disabled]="buttonActivated"></p-button>
+
+<p-dialog
+  header="Title"
+  [(visible)]="display"
+  [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+  [style]="{ width: '50vw' }"
+  [modal]="true"
+  [maximizable]="true"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div>
+    <div>
+      <input id="float-input-one" type="text" onkeydown="return /[a-z]/i.test(event.key)" pInputText [(ngModel)]="jobTitle" />
+      <label for="float-input-one">Job title</label>
+    </div>
+    <div>
+      <p-button label="Update" (click)="dialogButtonEvent()"></p-button>
+    </div>
+  </div>
+</p-dialog>
+<p-toast></p-toast>

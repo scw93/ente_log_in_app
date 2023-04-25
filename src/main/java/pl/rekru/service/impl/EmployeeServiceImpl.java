@@ -1,5 +1,6 @@
 package pl.rekru.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -62,8 +63,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     @Transactional(readOnly = true)
     public List<Employee> findAll() {
-        log.debug("Request to get all Employees");
-        return employeeRepository.findAll();
+        //return employeeRepository.findAllNotDeletedEmployees();
+        //return employeeRepository.findAllNotDeltEmployeesNotNative();
+        return employeeRepository.findAllByDeletedIsNullOrderById();
     }
 
     @Override
@@ -74,8 +76,16 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void delete(Long id) {
+    public Boolean delete(Long id) {
         log.debug("Request to delete Employee : {}", id);
-        employeeRepository.deleteById(id);
+        Optional<Employee> employee = employeeRepository.findById(id);
+        if (employee.isPresent()) {
+            Employee tmpEmployee = employee.get();
+            tmpEmployee.setDeleted(true);
+            employeeRepository.save(tmpEmployee);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
