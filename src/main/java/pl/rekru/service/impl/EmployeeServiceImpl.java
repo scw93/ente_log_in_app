@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.rekru.domain.Employee;
 import pl.rekru.repository.EmployeeRepository;
 import pl.rekru.service.EmployeeService;
+import pl.rekru.service.dto.EmployeeDTO;
 
 /**
  * Service Implementation for managing {@link Employee}.
@@ -62,10 +63,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Employee> findAll() {
+    public List<EmployeeDTO> findAll() {
         //return employeeRepository.findAllNotDeletedEmployees();
         //return employeeRepository.findAllNotDeltEmployeesNotNative();
-        return employeeRepository.findAllByDeletedIsNullOrderById();
+        List<Employee> sourceList = employeeRepository.findAllByDeletedIsNullOrderById();
+        List<EmployeeDTO> returnList = new ArrayList<>();
+        for (Employee employee : sourceList) {
+            EmployeeDTO eDto = new EmployeeDTO();
+            eDto.setDeleted(employee.getDeleted());
+            eDto.setFirstName(employee.getFirstName());
+            eDto.setLastName(employee.getLastName());
+            eDto.setFullName(employee.getFirstName() + " " + employee.getLastName());
+            eDto.setId(employee.getId());
+            returnList.add(eDto);
+        }
+        return returnList;
     }
 
     @Override

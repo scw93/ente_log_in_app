@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.rekru.domain.Employee;
 import pl.rekru.repository.EmployeeRepository;
 import pl.rekru.service.EmployeeService;
+import pl.rekru.service.dto.EmployeeDTO;
 import pl.rekru.web.rest.errors.BadRequestAlertException;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
@@ -136,7 +137,7 @@ public class EmployeeResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of employees in body.
      */
     @GetMapping("/employees")
-    public List<Employee> getAllEmployees() {
+    public List<EmployeeDTO> getAllEmployees() {
         log.debug("REST request to get all Employees");
         return employeeService.findAll();
     }
@@ -160,6 +161,7 @@ public class EmployeeResource {
      * @param id the id of the employee to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
+
     @DeleteMapping("/employee/{id}")
     public Boolean deleteJob(@PathVariable Long id) {
         log.debug("REST request to delete Job : {}", id);
