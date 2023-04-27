@@ -15,8 +15,8 @@
   >
   <ng-template pTemplate="header">
     <tr>
-      <th pSortableColumn="name" style="width: 25%">Name <p-sortIcon field="name"></p-sortIcon></th>
-      <th pSortableColumn="role" style="width: 25%">Role <p-sortIcon field="role"></p-sortIcon></th>
+      <th style="width: 25%">Name</th>
+      <th style="width: 25%">Role</th>
     </tr>
     <tr>
       <!-- <th>
@@ -45,7 +45,7 @@
     <tr [pSelectableRow]="employee2Job">
       <td>
         <span class="p-column-title">Name</span>
-        {{ employee2Job.employee.firstName }} {{ employee2Job.employee.firstName }}
+        {{ employee2Job.employee.firstName }} {{ employee2Job.employee.lastName }}
       </td>
       <td>
         <span class="p-column-title">Role</span>
@@ -76,7 +76,7 @@
   </ng-template>
 </p-table>
 <p-dialog
-  header="Title"
+  header="Employee's role"
   [(visible)]="display"
   [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
   [style]="{ width: '50vw' }"

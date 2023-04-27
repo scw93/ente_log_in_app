@@ -1,5 +1,3 @@
-<!-- scrollHeight="70vh" -->
-
 <p-table
   [scrollable]="true"
   scrollHeight="70vh"
@@ -50,7 +48,7 @@
 </p-table>
 
 <p-dialog
-  header="Title"
+  header="Employee"
   [(visible)]="display"
   [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
   [style]="{ width: '50vw' }"
@@ -67,8 +65,9 @@
         onkeydown="return /[a-z]/i.test(event.key)"
         pInputText
         [(ngModel)]="selectedEmployee.firstName"
+        placeholder="Write first name"
       />
-      <label for="float-input-one">Name</label>
+      <!-- <label for="float-input-one">Name</label> -->
     </div>
     <div>
       <input
@@ -77,15 +76,16 @@
         onkeydown="return /[a-z]/i.test(event.key)"
         pInputText
         [(ngModel)]="selectedEmployee.lastName"
+        placeholder="Write last name"
       />
-      <label for="float-input-two">Lastname</label>
+      <!-- <label for="float-input-two">Lastname</label> -->
     </div>
     <div>
-      <input id="float-input-three" type="number" pInputText [(ngModel)]="selectedEmployee.pesel" />
-      <label for="float-input-three">Pesel</label>
+      <input id="float-input-three" type="number" pInputText [(ngModel)]="selectedEmployee.pesel" placeholder="Write pesel" />
+      <!-- <label for="float-input-three">Pesel</label> -->
     </div>
   </div>
-  <div [ngSwitch]="isAdd()">
+  <div [ngSwitch]="isAdd()" class="btnAddOrUpdate">
     <div *ngSwitchCase="true">
       <p-button label="Add" (click)="addEmployee()"></p-button>
     </div>

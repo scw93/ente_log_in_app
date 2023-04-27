@@ -279,4 +279,41 @@ input::-webkit-inner-spin-button {
   background-color: green !important;
 }
 
+.p-paginator-bottom {
+  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.p-sortable-column {
+  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.p-dialog-content div {
+  display: flex;
+  justify-content: space-around;
+}
+
+p-dropdown {
+  width: 340px;
+}
+
+p-overlay div {
+  position: fixed;
+  background-color: white;
+  width: 340px;
+}
+
+.p-dropdown-item {
+  color: red;
+  background-color: red;
+  // width: 100%;
+}
+
+.p-dropdown-items-wrapper {
+  max-height: 300px !important;
+}
+
+.p-dropdown-items-wrapper ul {
+  width: 100%;
+}
+
 /* jhipster-needle-scss-add-main JHipster will add new css style */

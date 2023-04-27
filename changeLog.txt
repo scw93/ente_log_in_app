@@ -1,3 +1,8 @@
+ver 1.1.5
+- dodanie zabezpieczeń przy funkcjach tabel
+- poprawa dropdown'ów oraz p-dialogów i ich działania
+- dodanie stylów
+
 ver 1.1.4
 - utworzenie DTO, aby ściągnąć z backendu fullName, co przechowuje Imię i nazwisko i wyświetlić to w dropdown'ie
 

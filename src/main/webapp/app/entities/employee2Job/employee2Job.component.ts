@@ -21,11 +21,11 @@ import { Employee } from '../employee/employee.model';
 export class Employee2JobComponent implements OnInit {
   employee2Jobs: any;
   employees: Employee[] = [];
-  selectedEmployee: Employee | undefined = new Employee();
+  selectedEmployee: Employee | undefined;
   jobs: Job[] = [];
-  selectedJob: Job | undefined = new Job();
+  selectedJob: Job | undefined;
   employee2Job: Employee2Job = new Employee2Job();
-  selectedemployee2Job: Employee2Job = new Employee2Job();
+  selectedemployee2Job: Employee2Job | undefined;
   buttonActivated = true;
   isButtonDisabledAddBtn = false;
   display = false;
@@ -64,7 +64,7 @@ export class Employee2JobComponent implements OnInit {
   }
 
   deleteSelectedRow(): void {
-    this.employee2JobService.deleteEmployee2Job(this.selectedemployee2Job.id!).subscribe(response => {
+    this.employee2JobService.deleteEmployee2Job(this.selectedemployee2Job!.id!).subscribe(response => {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (response) {
         this.getAllEmployees();
@@ -80,13 +80,17 @@ export class Employee2JobComponent implements OnInit {
   addEmployee(): void {
     this.employee2Job.job = this.selectedJob;
     this.employee2Job.employee = this.selectedEmployee;
-    this.employee2JobService.create(this.employee2Job).subscribe(response => {
-      // eslint-disable-next-line no-console
-      console.log('dodano nowego uzytkownika: ', response);
-      this.getAllEmployees();
-      this.showToast('success', 'Success!', 'Added a new employee.');
-    });
-    this.hideDialog();
+    if (this.employee2Job.employee !== undefined && this.employee2Job.job !== undefined) {
+      this.employee2JobService.create(this.employee2Job).subscribe(response => {
+        // eslint-disable-next-line no-console
+        console.log('dodano nowego uzytkownika: ', response);
+        this.getAllEmployees();
+        this.showToast('success', 'Success!', 'Added a new employee.');
+      });
+      this.hideDialog();
+    } else {
+      this.showToast('error', 'Error!', 'All fields must be completed.');
+    }
   }
 
   unlockButtons(): void {
@@ -100,9 +104,9 @@ export class Employee2JobComponent implements OnInit {
   }
 
   updateEmployee(): void {
-    if (this.selectedJob?.jobTitle !== this.selectedemployee2Job.job?.jobTitle) {
-      this.selectedemployee2Job.job = this.selectedJob;
-      this.employee2JobService.update(this.selectedemployee2Job).subscribe(response => {
+    if (this.selectedJob?.jobTitle !== this.selectedemployee2Job!.job?.jobTitle) {
+      this.selectedemployee2Job!.job = this.selectedJob;
+      this.employee2JobService.update(this.selectedemployee2Job!).subscribe(response => {
         // eslint-disable-next-line no-console
         console.log('zaktualizowano nowego uzytkownika: ', response);
         this.getAllEmployees();
@@ -117,9 +121,9 @@ export class Employee2JobComponent implements OnInit {
   showDialog(flag: boolean): void {
     this.display = true;
     if (flag) {
-      if (typeof this.selectedemployee2Job.job !== 'undefined' && typeof this.selectedemployee2Job.employee !== 'undefined') {
-        this.selectedJob = this.jobs.find(job => this.selectedemployee2Job.job?.jobTitle === job.jobTitle);
-        this.selectedEmployee = this.employees.find(employee => this.selectedemployee2Job.employee?.id === employee.id);
+      if (typeof this.selectedemployee2Job!.job !== 'undefined' && typeof this.selectedemployee2Job!.employee !== 'undefined') {
+        this.selectedJob = this.jobs.find(job => this.selectedemployee2Job!.job?.jobTitle === job.jobTitle);
+        this.selectedEmployee = this.employees.find(employee => this.selectedemployee2Job!.employee?.id === employee.id);
       }
     } else {
       this.selectedJob = undefined;

@@ -57,11 +57,11 @@ export class JobComponent implements OnInit {
         // eslint-disable-next-line no-console
         console.log('dodano nowego uzytkownika: ', response);
         this.getAllJobs();
-        this.showToast('success', 'Success!', 'Added a new employee.');
+        this.showToast('success', 'Success!', 'Added a new role.');
         this.hideDialog();
       });
     } else {
-      this.showToast('error', 'Error!', 'Cannot add a new user.');
+      this.showToast('error', 'Error!', 'Please fill the empty field.');
     }
   }
 
@@ -128,18 +128,6 @@ export class JobComponent implements OnInit {
   hideDialog(): void {
     this.display = false;
   }
-
-  // showError(): void {
-  //   this.messageService.add({ severity: 'error', summary: 'Error!', detail: 'Cannot add an empty value.' });
-  // }
-
-  // showSuccess(response: string): void {
-  //   this.messageService.add({ severity: 'success', summary: 'Success!', detail: response });
-  // }
-
-  // showInfo(): void {
-  //   this.messageService.add({ severity: 'info', summary: 'Info Message!', detail: 'The record was deleted.' });
-  // }
 
   showToast(severity: string, summary: string, detail: string): void {
     this.messageService.add({ severity, summary, detail });
