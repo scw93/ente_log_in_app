@@ -73,6 +73,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             eDto.setDeleted(employee.getDeleted());
             eDto.setFirstName(employee.getFirstName());
             eDto.setLastName(employee.getLastName());
+            eDto.setPesel(employee.getPesel());
             eDto.setFullName(employee.getFirstName() + " " + employee.getLastName());
             eDto.setId(employee.getId());
             returnList.add(eDto);
