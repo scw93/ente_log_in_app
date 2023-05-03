@@ -27,8 +27,6 @@ export class EmployeeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllEmployees();
-    // eslint-disable-next-line no-console
-    console.log('pracownicy');
   }
 
   getAllEmployees(): void {
@@ -53,7 +51,6 @@ export class EmployeeComponent implements OnInit {
   deleteSelectedRow(): void {
     // eslint-disable-next-line no-console
     console.log('usuwam rekord z nr id: ', this.selectedEmployee.id);
-    // ZROB SOFT DELETE ZAMIAST WYWALAC CALKIEM Z BAZY
     this.employeeService.delete(this.selectedEmployee.id!).subscribe(response => {
       if (response) {
         this.getAllEmployees();
@@ -75,14 +72,22 @@ export class EmployeeComponent implements OnInit {
   }
 
   addEmployee(): void {
-    this.employeeService.create(this.selectedEmployee).subscribe(response => {
-      // eslint-disable-next-line no-console
-      console.log('dodano nowego uzytkownika: ', response);
-      this.getAllEmployees();
-      this.showToast('success', 'Success!', 'Added a new employee.');
-      this.clearModel();
-    });
-    this.hideDialog();
+    if (
+      this.selectedEmployee.firstName !== undefined &&
+      this.selectedEmployee.lastName !== undefined &&
+      this.selectedEmployee.pesel !== undefined
+    ) {
+      this.employeeService.create(this.selectedEmployee).subscribe(response => {
+        // eslint-disable-next-line no-console
+        console.log('dodano nowego uzytkownika: ', response);
+        this.getAllEmployees();
+        this.showToast('success', 'Success!', 'Added a new employee.');
+        this.clearModel();
+      });
+      this.hideDialog();
+    } else {
+      this.showToast('error', 'Error!', 'Complete all fields.');
+    }
   }
 
   updateEmployee(): void {

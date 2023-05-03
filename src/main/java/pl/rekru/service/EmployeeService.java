@@ -3,6 +3,7 @@ package pl.rekru.service;
 import java.util.List;
 import java.util.Optional;
 import pl.rekru.domain.Employee;
+import pl.rekru.service.dto.EmployeeDTO;
 
 /**
  * Service Interface for managing {@link Employee}.
@@ -37,7 +38,7 @@ public interface EmployeeService {
      *
      * @return the list of entities.
      */
-    List<Employee> findAll();
+    List<EmployeeDTO> findAll();
 
     /**
      * Get the "id" employee.

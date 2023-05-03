@@ -1,3 +1,14 @@
+ver 1.1.6
+- poprawienie zwracanego pesela w encji Employee
+
+ver 1.1.5
+- dodanie zabezpieczeń przy funkcjach tabel
+- poprawa dropdown'ów oraz p-dialogów i ich działania
+- dodanie stylów
+
+ver 1.1.4
+- utworzenie DTO, aby ściągnąć z backendu fullName, co przechowuje Imię i nazwisko i wyświetlić to w dropdown'ie
+
 ver 1.1.3
 - dodawanie nowych rekordów: łączenie użytkowników ze swoimi rolami w tabeli "employee2Job"
 - dodanie toastów
