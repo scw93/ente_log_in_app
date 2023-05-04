@@ -29,7 +29,6 @@ public class Job implements Serializable {
     @Column(name = "job_title")
     private String jobTitle;
 
-    @JsonIgnore
     @Column(name = "deleted")
     private Boolean deleted;
 

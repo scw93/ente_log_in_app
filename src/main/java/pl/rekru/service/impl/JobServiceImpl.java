@@ -57,7 +57,9 @@ public class JobServiceImpl implements JobService {
     @Override
     @Transactional(readOnly = true)
     public List<Job> findAll() {
+        // return jobRepository.findAllNotDeletedJobs();
         return jobRepository.findAllNotDeletedJobs();
+        // return jobRepository.findAllByDeletedIsNull();
     }
 
     @Override

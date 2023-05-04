@@ -11,6 +11,12 @@ import pl.rekru.domain.Job;
 @SuppressWarnings("unused")
 @Repository
 public interface JobRepository extends JpaRepository<Job, Long> {
-    @Query(value = "select * from job where deleted is null order by id", nativeQuery = true)
+    //1 natywne query
+    // @Query(value = "select * from job where deleted is null order by id", nativeQuery = true)
+    // List<Job> findAllNotDeletedJobs();
+    //2 jpql
+    @Query(value = "select e from Job e where e.deleted is null order by e.id")
     List<Job> findAllNotDeletedJobs();
+    //3 zapytanie do bazy poprzez nazwe funkcji
+    // List<Job> findAllByDeletedIsNull();
 }

@@ -3,6 +3,7 @@ package pl.rekru.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -25,10 +26,10 @@ public class OperationHistory implements Serializable {
     private Long id;
 
     @Column(name = "user_id")
-    private String userId;
+    private String userName;
 
     @Column(name = "date_of_change")
-    private Instant dateOfChange;
+    private LocalDateTime dateOfChange;
 
     @Column(name = "change_description")
     private String changeDescription;
@@ -47,19 +48,19 @@ public class OperationHistory implements Serializable {
         this.id = id;
     }
 
-    public String getUserId() {
-        return this.userId;
+    public String getUserName() {
+        return this.userName;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public Instant getDateOfChange() {
+    public LocalDateTime getDateOfChange() {
         return this.dateOfChange;
     }
 
-    public void setDateOfChange(Instant dateOfChange) {
+    public void setDateOfChange(LocalDateTime dateOfChange) {
         this.dateOfChange = dateOfChange;
     }
 
@@ -103,7 +104,7 @@ public class OperationHistory implements Serializable {
     public String toString() {
         return "OperationHistory{" +
             "id=" + getId() +
-            ", userId='" + getUserId() + "'" +
+            ", userId='" + getUserName() + "'" +
             ", dateOfChange='" + getDateOfChange() + "'" +
             ", changeDescription='" + getChangeDescription() + "'" +
             "}";
