@@ -5,14 +5,14 @@
   selectionMode="single"
   [(selection)]="selectedOperationHistory"
   [tableStyle]="{ 'min-width': '50rem' }"
-  (onRowSelect)="unlockButtons()"
-  (onRowUnselect)="lockButtons()"
 >
-  <ng-template pTemplate="caption">
+  <!-- (onRowSelect)="unlockButtons()"
+  (onRowUnselect)="lockButtons()" -->
+  <!-- <ng-template pTemplate="caption">
     <div class="flex align-items-center justify-content-between">
       <input type="text" pInputText placeholder="Search" class="search-input" />
-    </div>
-  </ng-template>
+    </div> -->
+  <!-- </ng-template> -->
   <ng-template pTemplate="header">
     <tr>
       <th>Id</th>
@@ -24,17 +24,17 @@
   <ng-template pTemplate="body" let-operationHistory>
     <tr [pSelectableRow]="operationHistory">
       <td>{{ operationHistory.id }}</td>
-      <td>{{ operationHistory.userId }}</td>
+      <td>{{ operationHistory.userName }}</td>
       <td>{{ operationHistory.dateOfChange }}</td>
       <td>{{ operationHistory.changeDescription }}</td>
     </tr>
   </ng-template>
   <ng-template pTemplate="summary">
-    <div class="flex align-items-center justify-content-between">
+    <!-- <div class="flex align-items-center justify-content-between">
       <div class="p-buttons">
         <p-button label="Delete" [disabled]="buttonActivated" (onClick)="deleteSelectedRow()" *jhiHasAnyAuthority="'ROLE_ADMIN'"></p-button>
       </div>
-    </div>
+    </div> -->
   </ng-template>
 </p-table>
 <!-- <p-button label="Add" (click)="showDialog()"></p-button> -->

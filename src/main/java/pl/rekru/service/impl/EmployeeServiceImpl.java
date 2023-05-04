@@ -23,19 +23,28 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    private final OperationHistoryServiceImpl operationHistoryServiceImpl;
+
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, OperationHistoryServiceImpl operationHistoryServiceImpl) {
         this.employeeRepository = employeeRepository;
+        this.operationHistoryServiceImpl = operationHistoryServiceImpl;
     }
 
     @Override
     public Employee save(Employee employee) {
         log.debug("Request to save Employee : {}", employee);
+        operationHistoryServiceImpl.savedOperation(
+            "Dodanie nowego pracownika o imieniu i nazwisku: " + employee.getFirstName() + "" + employee.getLastName()
+        );
         return employeeRepository.save(employee);
     }
 
     @Override
     public Employee update(Employee employee) {
         log.debug("Request to update Employee : {}", employee);
+        operationHistoryServiceImpl.savedOperation(
+            "Edycja pracownika o imieniu i nazwisku: " + employee.getFirstName() + " " + employee.getLastName()
+        );
         return employeeRepository.save(employee);
     }
 
@@ -91,6 +100,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Boolean delete(Long id) {
         log.debug("Request to delete Employee : {}", id);
+        operationHistoryServiceImpl.savedOperation("Usunięcie pracownika o numerze ID: " + id);
         Optional<Employee> employee = employeeRepository.findById(id);
         if (employee.isPresent()) {
             Employee tmpEmployee = employee.get();

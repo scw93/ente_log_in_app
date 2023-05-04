@@ -165,11 +165,6 @@ public class EmployeeResource {
     @DeleteMapping("/employee/{id}")
     public Boolean deleteJob(@PathVariable Long id) {
         log.debug("REST request to delete Job : {}", id);
-        Boolean result = employeeService.delete(id);
-        if (result) {
-            return true;
-        } else {
-            return false;
-        }
+        return employeeService.delete(id);
     }
 }

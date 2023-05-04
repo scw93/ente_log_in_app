@@ -37,11 +37,21 @@ public class Employee implements Serializable {
     @Column(name = "deleted")
     private Boolean deleted;
 
+    // private String fullName;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
         return this.id;
     }
+
+    // public void setFullName(String fullName) {
+    //     this.fullName = fullName;
+    // }
+
+    // public String getFullName() {
+    //     return this.fullName;
+    // }
 
     public void setId(Long id) {
         this.id = id;

@@ -1,5 +1,7 @@
 package pl.rekru.service.impl;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -8,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.rekru.domain.OperationHistory;
+import pl.rekru.management.MojaKlasa;
 import pl.rekru.repository.OperationHistoryRepository;
 import pl.rekru.service.OperationHistoryService;
 
@@ -22,8 +25,19 @@ public class OperationHistoryServiceImpl implements OperationHistoryService {
 
     private final OperationHistoryRepository operationHistoryRepository;
 
-    public OperationHistoryServiceImpl(OperationHistoryRepository operationHistoryRepository) {
+    private final MojaKlasa mojaKlasa;
+
+    public OperationHistoryServiceImpl(OperationHistoryRepository operationHistoryRepository, MojaKlasa mojaKlasa) {
         this.operationHistoryRepository = operationHistoryRepository;
+        this.mojaKlasa = mojaKlasa;
+    }
+
+    public void savedOperation(String changeDescription) {
+        OperationHistory newRecord = new OperationHistory();
+        newRecord.setUserName(mojaKlasa.getUserName());
+        newRecord.setChangeDescription(changeDescription);
+        newRecord.setDateOfChange(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
+        operationHistoryRepository.save(newRecord);
     }
 
     @Override
@@ -45,8 +59,8 @@ public class OperationHistoryServiceImpl implements OperationHistoryService {
         return operationHistoryRepository
             .findById(operationHistory.getId())
             .map(existingOperationHistory -> {
-                if (operationHistory.getUserId() != null) {
-                    existingOperationHistory.setUserId(operationHistory.getUserId());
+                if (operationHistory.getUserName() != null) {
+                    existingOperationHistory.setUserName(operationHistory.getUserName());
                 }
                 if (operationHistory.getDateOfChange() != null) {
                     existingOperationHistory.setDateOfChange(operationHistory.getDateOfChange());
