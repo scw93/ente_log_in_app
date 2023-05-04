@@ -1,5 +1,10 @@
 # ente_log_in_app
 
+ver 1.1.7
+- stworzenie funkcjonalności dla tabeli "OperationsHistory"
+- dodanie nowej czcionki
+- poprawy interfejsu
+
 ver 1.1.6
 - poprawienie zwracanego pesela w encji Employee
 
